@@ -1,0 +1,28 @@
+.header-bar {
+    background-color: #e6e6e6; 
+    padding: 10px 0; 
+    border-bottom: 1px solid #dee2e6; 
+}
+
+.header-bar .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header-bar .nav-link {
+    margin-left: 10px;
+}
+
+.header-bar .btn-primary {
+    background-color: #007bff; 
+    border-color: #007bff; 
+}
+
+.header-bar .btn-secondary {
+    background-color: #6c757d; 
+    border-color: #6c757d;
+}
+
+.header-bar .btn-primary:hover, .header-bar .btn-secondary:hover {
+    opacity: 0.8; 
+}

@@ -1,0 +1,11 @@
+Backend/Conexion.class
+ServiciosRest/Etiqueta.class
+Backend/JakartaRestConfiguration.class
+Backend/Etiqueta.class
+Resources/JakartaEE10Resource.class
+Models/Usuario.class
+Models/TipoUsuarioEnum.class
+ServiciosRest/RegistroServicio.class
+Filters/ConfiguracionCors.class
+JPA/EtiquetaRepositorio.class
+ServiciosRest/EtiquetaService.class
