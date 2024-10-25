@@ -1,5 +1,5 @@
 <input type="hidden" value="{{ etiquetaIn.nombre }}" #etiqueta />
-<td ngIf="tipoBoton">
+<td *ngIf="tipoBoton">
   <a
     class="btn btn-outline-success btn-xs"
     (click)="agregarEtiqueta(etiqueta.value)"
@@ -7,7 +7,7 @@
     {{ etiquetaIn.nombre }}
   </a>
 </td>
-<td ngIf="!tipoBoton">
+<td *ngIf="!tipoBoton">
   <a
     class="btn btn-outline-danger btn-xs"
     (click)="quitarEtiqueta(etiqueta.value)"

@@ -8,7 +8,7 @@ import { Etiqueta } from 'app/Objetos/Etiqueta';
 })
 export class EtiquetaService {
 
-  private apiUrl = 'http://localhost:8080/Backend/resources/Etiqueta'; 
+  private apiUrl = 'http://localhost:8080/Backend/resources/Etiquetas'; 
 
   constructor(private http: HttpClient) {}
 

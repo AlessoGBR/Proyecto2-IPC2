@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
     <artifactId>Backend</artifactId>
-    <version>SNAPSHOT</version>
+    <version>-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Backend</name>
     
@@ -20,7 +20,7 @@
             <scope>provided</scope>
         </dependency>
         
-        <!-- the REST API -->
+         <!-- the REST API -->
         <dependency>
             <groupId>jakarta.ws.rs</groupId>
             <artifactId>jakarta.ws.rs-api</artifactId>
@@ -54,11 +54,7 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.18.0</version>
         </dependency>
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.0.0</version> <!-- Asegúrate de usar una versión adecuada -->
-        </dependency>
+        
 
         <dependency>
             <groupId>com.mysql</groupId>
@@ -72,11 +68,12 @@
             <version>10.1.28</version>
             <type>jar</type>
         </dependency>
-        <!-- MicroProfile JWT API -->
+        
         <dependency>
-            <groupId>org.eclipse.microprofile.jwt</groupId>
-            <artifactId>microprofile-jwt-auth-api</artifactId>
-            <version>2.1</version> 
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>3.1.9</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     

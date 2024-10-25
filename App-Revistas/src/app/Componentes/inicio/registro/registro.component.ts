@@ -3,14 +3,17 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule} from '@angular/
 import { DomSanitizer } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ErrorComponent } from "../../Errores/error/error.component";
-import { RegistroService } from 'app/Servicios/ServicioRegistro/Registro.servicio';
+import { RegistroService } from 'app/Servicios/ServicioRegistro/Registro.service';
 import { SeleccionEtiquetasComponent } from 'app/Componentes/Seleccion-etiquetas/selecion-etiquetas/seleccion-etiquetas/seleccion-etiquetas.component';
 import { Etiqueta } from 'app/Objetos/Etiqueta';
+import { InicioComponent } from '../inicio.component';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ErrorComponent, CommonModule, ReactiveFormsModule, SeleccionEtiquetasComponent],
+  imports: [ErrorComponent, CommonModule, ReactiveFormsModule, SeleccionEtiquetasComponent, InicioComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -26,7 +29,8 @@ export class RegistroComponent {
   constructor(
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
-    private registroService: RegistroService 
+    private registroService: RegistroService,
+    private router: Router
   ) {
     this.validarForm = this.formBuilder.group({
       nombreUsuario: ['', Validators.required],
@@ -70,16 +74,33 @@ export class RegistroComponent {
         username: this.validarForm.get('nombreUsuario')?.value,
         password: this.validarForm.get('password')?.value,
         descripcion: this.validarForm.get('descripcion')?.value,
-        userType: this.tipoUsuario
+        userType: this.tipoUsuario,
+        etiquetas: this.etiquetasSeleccionadas
       };
       console.log('Datos a enviar:', formData);
   
       this.registroService.registrarUsuario(formData).subscribe(
         (response) => {
           console.log('Registro exitoso:', response);
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro exitoso',
+            text: '¡Bienvenido!',
+            confirmButtonText: 'Aceptar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/InicioSesion']);
+            }
+          });
         },
         (error) => {
           console.error('Error en el registro:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en el registro',
+            text: 'Intenta nuevamente.',
+            confirmButtonText: 'Aceptar'
+          });
         }
       );
     } else {
@@ -92,5 +113,6 @@ export class RegistroComponent {
     this.tipoUsuario = selectElement.value; 
   }
   
+
 
 }

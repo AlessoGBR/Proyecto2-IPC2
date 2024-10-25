@@ -7,6 +7,9 @@ import { SeleccionEtiquetasComponent } from './Componentes/Seleccion-etiquetas/s
 import { EtiquetaComponent } from './Componentes/Seleccion-etiquetas/etiqueta/etiqueta/etiqueta.component';
 import { MenuLectorComponent } from './Componentes/Menus/menu-lector/menu-lector/menu-lector.component';
 import { MenuEditorComponent } from './Componentes/Menus/menu-editor/menu-editor/menu-editor.component';
+import { MenuAdminComponent } from './Componentes/Menus/menu-admin/menu-admin/menu-admin.component';
+import { MenuAnuncianteComponent } from './Componentes/Menus/menu-anunciante/menu-anunciante/menu-anunciante.component';
+import { PublicarRevistaComponent } from './Componentes/Revistas/publicar-revista/publicar-revista/publicar-revista.component';
 
 export const routes: Routes = [
     {path: 'Inicio', component: InicioComponent},
@@ -16,5 +19,9 @@ export const routes: Routes = [
     {path: 'Etiquetas', component:SeleccionEtiquetasComponent},
     {path: 'Etiqueta',component: EtiquetaComponent},
     {path: 'InicioLector' , component: MenuLectorComponent},
-    {path: 'InicioEditor', component:MenuEditorComponent}
+    {path: 'InicioEditor', component:MenuEditorComponent},
+    {path: 'InicioAdmin', component: MenuAdminComponent},
+    {path: 'InicioAnunciante', component:MenuAnuncianteComponent},
+    {path: 'crear-revista', component:PublicarRevistaComponent},
+    {path: '', redirectTo: '/Inicio',pathMatch: 'full'}
 ];

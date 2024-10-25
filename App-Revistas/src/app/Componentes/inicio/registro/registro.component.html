@@ -1,3 +1,4 @@
+<app-inicio></app-inicio>
 <div class="my-5">
     <form [formGroup]="validarForm" class="was-validated" (ngSubmit)="onSubmit()">
       <div class="container-lg my-1 border shadow-lg">
@@ -29,8 +30,7 @@
                   <img [src]="mostrarFoto" />
                 </div>
               </div>
-            </div>
-  
+            </div>  
             <div class="row my-4">
               <div class="input-group">
                 <input
@@ -42,8 +42,7 @@
                   required
                 />
               </div>
-            </div>
-  
+            </div>  
             <div class="row">
               <div class="col">
                 <div class="form-group">
@@ -129,15 +128,16 @@
               <p>Haz click para agregar tus intereses</p>
             </div>
             <div class="container">
-              <app-seleccion-etiquetas
+              <app-seleccion-etiquetas 
+              (enviarEtiquetas)="actualizarEtiquetas($event)"
             ></app-seleccion-etiquetas>
             </div>
           </div>
         </div>
   
         <div class="row">
-          <div class="text-center my-3">
-            <button type="submit" class="btn btn-primary" [disabled]="!passwordEquals">Registrarse</button>
+          <div class="text-center my-4">
+            <button type="submit" class="btn btn-primary" [disabled]="!passwordEquals || etiquetasSeleccionadas.length < 3" >Registrarse</button>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ public class Usuario {
     private String userType;
     private String descripcion;
     private String foto;
-    private List<String> tags;
+    private List<Etiqueta> etiquetas;
 
     public Usuario() {
         
@@ -68,12 +68,12 @@ public class Usuario {
         this.foto = foto;
     }
 
-    public List<String> getTags() {
-        return tags;
+    public List<Etiqueta> getEtiquetas() {
+        return etiquetas;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
+    public void setEtiquetas(List<Etiqueta> etiquetas) {
+        this.etiquetas = etiquetas;
     }    
     
 

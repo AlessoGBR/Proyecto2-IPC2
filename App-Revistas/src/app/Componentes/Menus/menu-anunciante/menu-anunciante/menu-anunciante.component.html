@@ -1,0 +1,57 @@
+<header>
+  <div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a class="navbar-brand"></a>
+      <a class="navbar-brand" href="InicioLector">
+        <img
+          src="http://voxpopulii.in/system/static/dashboard/img/default_user.png"
+          alt="Avatar Logo"
+          style="width: 35px"
+          class="rounded-pill"
+        />
+      </a>
+      <a class="navbar-brand">{{ username }}</a>
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href=""> Perfil </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="togglePublicarAnuncio()"
+              aria-label="Ir a crear revista"
+            >
+              Crear anuncio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="toggleVerAnuncios()"
+              aria-label="Ir a crear revista"
+            >
+              Ver anuncios
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="toggleCartera()"
+              aria-label="Ir a crear revista"
+            >
+              Cartera
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+<router-outlet></router-outlet>
+<div *ngIf="crearAnuncio">
+  <app-crear-anuncio></app-crear-anuncio>
+</div>
+<div *ngIf="verAnuncios">
+  <app-ver-anuncios></app-ver-anuncios>
+</div>

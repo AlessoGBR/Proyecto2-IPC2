@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <a class="navbar-brand"></a>
+  <a class="navbar-brand" href="InicioAdmin">
+    <img
+      src="http://voxpopulii.in/system/static/dashboard/img/default_user.png"
+      alt="Avatar Logo"
+      style="width: 35px"
+      class="rounded-pill"
+    />
+  </a>
+  <a class="navbar-brand">Admin</a>
+  <div class="collapse navbar-collapse" id="navbarsExample04">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="InicioAdmin/ListaEspera">Inicio</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+          Anuncios
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="InicioAdmin/VerAnuncios"
+              >Ver Anuncios</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="InicioAdmin/VerAnunciantes"
+              >Ver Anunciantes</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="InicioAdmin/Reportes1"> Reportes </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>
+
+<app-lista-espera></app-lista-espera>
+<!--
+<app-lista-aprobadas></app-lista-aprobadas>
+-->

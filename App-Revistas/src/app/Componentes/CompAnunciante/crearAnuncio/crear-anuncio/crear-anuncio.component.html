@@ -1,0 +1,92 @@
+<div class="container rounded-3 shadow-lg my-4" style="max-width: 725px">
+    <form class="was-validated" [formGroup]="validarForm" (ngSubmit)="registrarAnuncio()">
+      <div class="container p-2">
+        <div class="text-center">
+          <h1>Crear Anuncio</h1>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Tipo Anuncio</div>
+              </div>
+              <select class="form-control text-center" formControlName="tipo">
+                <option value="1">Texto</option>
+                <option value="2">Imagen con Texto</option>
+                <option value="3">Video con Texto</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col">
+            <textarea
+              class="form-control"
+              rows="4"
+              maxlength="500"
+              minlength="5"
+              formControlName="texto"
+              placeholder="Ingrese el Texto del anuncio aquí...."
+              required
+            ></textarea>
+          </div>
+        </div>
+        <div class="input-group mb-2">
+          <input
+            type="file"
+            class="form-control"
+            accept="image/*"
+            (change)="obtenerImagen($event)"
+            formControlName="archivo"
+          />
+          <div *ngIf="mostrarFoto" class="card" style="width: 80px">
+            <img [src]="mostrarFoto" />
+          </div>
+        </div>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Video URL</div>
+          </div>
+          <input
+            type="url"
+            class="form-control"
+            formControlName="video"
+            minlength="10"
+            [readonly]="validarForm.get('video')?.disabled"
+          />
+        </div>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Días Activo</div>
+          </div>
+          <input
+            type="number"
+            min="1"
+            step="1"
+            formControlName="dias"
+            class="form-control text-center"
+            required
+          />
+        </div>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Fecha ingreso</div>
+          </div>
+          <input
+            type="date"
+            formControlName="fecha"
+            class="form-control text-center"
+            required
+          />
+        </div>
+        <div class="row my-2">
+          <div class="d-grid">
+            <button type="submit" id="boton" class="btn btn-success">
+              Crear Anuncio
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

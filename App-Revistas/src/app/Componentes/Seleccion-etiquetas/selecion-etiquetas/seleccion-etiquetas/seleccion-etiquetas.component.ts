@@ -2,17 +2,20 @@ import { Component, OnInit , Output, EventEmitter} from '@angular/core';
 import { EtiquetaService } from 'app/Servicios/ServicioRegistro/etiqueta.service';
 import { Etiqueta } from 'app/Objetos/Etiqueta';
 import { EtiquetaComponent } from '../../etiqueta/etiqueta/etiqueta.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-seleccion-etiquetas',
   standalone: true,
-  imports: [EtiquetaComponent],
+  imports: [EtiquetaComponent,CommonModule],
   templateUrl: './seleccion-etiquetas.component.html',
   styleUrl: './seleccion-etiquetas.component.css'
 })
+
 export class SeleccionEtiquetasComponent implements OnInit {
   etiquetasExistentes: Etiqueta[] = [];
-  etiquetasSeleccionadas: string[] = [];
+  etiquetasSeleccionadas: Etiqueta[] = [];
+  
   @Output() enviarEtiquetas = new EventEmitter<Etiqueta[]>();
 
   constructor(private etiquetaService: EtiquetaService) {}
@@ -35,13 +38,21 @@ export class SeleccionEtiquetasComponent implements OnInit {
     });
   }
 
-  agregarEtiqueta(etiqueta: string): void {
-    if (!this.etiquetasSeleccionadas.includes(etiqueta)) {
+  agregarEtiqueta(etiqueta: Etiqueta): void {
+    const index = this.etiquetasExistentes.findIndex(e => e.nombre === etiqueta.nombre);
+    if (index > -1) {
+      this.etiquetasExistentes.splice(index, 1);
       this.etiquetasSeleccionadas.push(etiqueta);
+      this.enviarEtiquetas.emit(this.etiquetasSeleccionadas);
     }
   }
 
-  quitarEtiqueta(etiqueta: string): void {
-    this.etiquetasSeleccionadas = this.etiquetasSeleccionadas.filter(e => e !== etiqueta);
+  quitarEtiqueta(etiqueta: Etiqueta): void {
+    const index = this.etiquetasSeleccionadas.findIndex(e => e.nombre === etiqueta.nombre);
+    if (index > -1) {
+      this.etiquetasSeleccionadas.splice(index, 1);
+      this.etiquetasExistentes.push(etiqueta);
+      this.enviarEtiquetas.emit(this.etiquetasSeleccionadas);
+    }
   }
 }

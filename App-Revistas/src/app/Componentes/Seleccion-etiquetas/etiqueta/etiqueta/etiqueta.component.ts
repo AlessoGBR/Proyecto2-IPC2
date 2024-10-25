@@ -1,25 +1,29 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Etiqueta } from 'app/Objetos/Etiqueta';
-import { EtiquetaService } from 'app/Servicios/ServicioRegistro/etiqueta.service';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-etiqueta',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './etiqueta.component.html',
   styleUrl: './etiqueta.component.css'
 })
-export class EtiquetaComponent {
+export class EtiquetaComponent implements OnInit{
   @Input() etiquetaIn!: { nombre: string };
   @Input() tipoBoton!: boolean; 
   @Output() agregar = new EventEmitter<string>();
   @Output() quitar = new EventEmitter<string>();
 
-  agregarEtiqueta(nombre: string) {
-    this.agregar.emit(nombre);
+  constructor() {
   }
 
-  quitarEtiqueta(nombre: string) {
-    this.quitar.emit(nombre);
+  ngOnInit(): void {
+  }
+
+  agregarEtiqueta(dato: string) {
+    this.agregar.emit(dato);
+  }
+
+  quitarEtiqueta(dato: string) {
+    this.quitar.emit(dato);
   }
 }
