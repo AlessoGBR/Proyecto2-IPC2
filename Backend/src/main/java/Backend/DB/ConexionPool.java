@@ -38,10 +38,10 @@ public class ConexionPool {
             p.setTestOnReturn(false);
             p.setValidationInterval(30000);
             p.setTimeBetweenEvictionRunsMillis(30000);
-            p.setMaxActive(100);
+            p.setMaxActive(1000);
             p.setInitialSize(10);
-            p.setMaxWait(10000);
-            p.setRemoveAbandonedTimeout(60);
+            p.setMaxWait(1000);
+            p.setRemoveAbandonedTimeout(600);
             p.setMinEvictableIdleTimeMillis(30000);
             p.setMinIdle(10);
             p.setLogAbandoned(true);
@@ -51,7 +51,7 @@ public class ConexionPool {
                     + "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
             datasource = new DataSource(p);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("error: " + e);
         }
 
     }

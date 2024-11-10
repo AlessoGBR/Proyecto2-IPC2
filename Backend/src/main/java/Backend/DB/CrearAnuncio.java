@@ -4,6 +4,7 @@
  */
 package Backend.DB;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,8 +23,8 @@ public class CrearAnuncio {
 
     }
 
-    public void crearAnuncioTexto(String texto, int id, Date fechaInicio, Date fechaFinal) throws SQLException {
-        String sql = "INSERT INTO Anuncio (tipo, texto, nombre_anunciante, activo, fecha_inicio, fecha_final) VALUES (?, ?, ?, ?, ?, ?)";
+    public void crearAnuncioTexto(String texto, int id, Date fechaInicio, Date fechaFinal, double pago) throws SQLException {
+        String sql = "INSERT INTO Anuncio (tipo, texto, nombre_anunciante, activo, fecha_inicio, fecha_final, pago) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, "TEXTO");
             ps.setString(2, texto);
@@ -31,12 +32,13 @@ public class CrearAnuncio {
             ps.setBoolean(4, false);
             ps.setDate(5, fechaInicio);
             ps.setDate(6, fechaFinal);
+            ps.setDouble(7, pago);
             ps.executeUpdate();
         }
     }
 
-    public void crearAnuncioImagenYTexto(String texto, String imagen, int id, Date fechaInicio, Date fechaFinal) throws SQLException {
-        String sql = "INSERT INTO Anuncio (tipo, texto, path_imagen, nombre_anunciante, activo, fecha_inicio, fecha_final) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void crearAnuncioImagenYTexto(String texto, String imagen, int id, Date fechaInicio, Date fechaFinal, double pago) throws SQLException {
+        String sql = "INSERT INTO Anuncio (tipo, texto, path_imagen, nombre_anunciante, activo, fecha_inicio, fecha_final, pago) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, "IMAGEN Y TEXTO");
             ps.setString(2, texto);
@@ -45,12 +47,13 @@ public class CrearAnuncio {
             ps.setBoolean(5, false);
             ps.setDate(6, fechaInicio);
             ps.setDate(7, fechaFinal);
+            ps.setDouble(8, pago);
             ps.executeUpdate();
         }
     }
 
-    public void crearAnuncioVideo(String url, int id, Date fechaInicio, Date fechaFinal) throws SQLException {
-        String sql = "INSERT INTO Anuncio (tipo, url_video, nombre_anunciante, activo, fecha_inicio, fecha_final) VALUES (?, ?, ?, ?, ?, ?)";
+    public void crearAnuncioVideo(String url, int id, Date fechaInicio, Date fechaFinal, double pago) throws SQLException {
+        String sql = "INSERT INTO Anuncio (tipo, url_video, nombre_anunciante, activo, fecha_inicio, fecha_final, pago) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, "VIDEO");
             ps.setString(2, url);
@@ -58,6 +61,7 @@ public class CrearAnuncio {
             ps.setBoolean(4, false);
             ps.setDate(5, fechaInicio);
             ps.setDate(6, fechaFinal);
+            ps.setDouble(7, pago);
             ps.executeUpdate();
         }
     }
@@ -74,6 +78,83 @@ public class CrearAnuncio {
                 }
             }
         }
+    }
+
+    public boolean ingresoCartera(String nombre, double montoTotal) {
+        String sql = "UPDATE Anunciante SET cartera = ? WHERE nombre_usuario = ?";
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setDouble(1, montoTotal); 
+            stmt.setString(2, nombre); 
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public double obtenerCartera(String nombreUsuario) {
+        String sql = "SELECT cartera FROM Anunciante WHERE nombre_usuario = ?";
+        double cartera = 0;
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, nombreUsuario);
+            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                cartera = rs.getDouble("cartera"); 
+                System.out.println(cartera);
+            }
+        } catch (SQLException e) {
+            System.out.println("error: " + e);
+        }
+
+        return cartera;
+    }
+    
+    public boolean ingresoCarteraEditor(String nombre, int montoTotal) {
+        String sql = "UPDATE Cartera SET cartera = ? WHERE nombre_usuario = ?";
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, montoTotal); 
+            stmt.setString(2, nombre); 
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public int obtenerCarteraEditor(String nombreUsuario) {
+        String sql = "SELECT cartera FROM Cartera WHERE nombre_usuario = ?";
+        int cartera = 0;
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, nombreUsuario);
+            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                cartera = rs.getInt("cartera");
+            }
+        } catch (SQLException e) {
+            System.out.println("error: " + e);
+        }
+
+        return cartera;
     }
 
 }

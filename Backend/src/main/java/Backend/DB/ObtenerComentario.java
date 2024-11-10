@@ -6,9 +6,11 @@ package Backend.DB;
 
 import Models.Comentario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -18,18 +20,17 @@ import java.util.ArrayList;
 public class ObtenerComentario {
 
     private final ConexionPool dataSource = ConexionPool.getInstance();
-    
-    public ObtenerComentario(){
-    
+
+    public ObtenerComentario() {
+
     }
-    
-     public ArrayList<Comentario> obtenerComentariosRevista(int idRevista) {
+
+    public ArrayList<Comentario> obtenerComentariosRevista(int idRevista) {
         ArrayList<Comentario> comentarios = new ArrayList<>();
         String query = "SELECT * FROM Comentario_Revista WHERE idRevista = ? ORDER BY fecha;";
-        
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement prepared = connection.prepareStatement(query)) {
-             
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query)) {
+
             prepared.setInt(1, idRevista);
             ResultSet r = prepared.executeQuery();
             while (r.next()) {
@@ -38,32 +39,64 @@ public class ObtenerComentario {
                 String fecha = r.getDate(4).toString();
                 String usuario = r.getString(2);
                 int likes = r.getInt(3);
-                
+
                 comentarios.add(new Comentario(comentarioId, comentarioTexto, fecha, usuario, likes));
             }
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
         return comentarios;
     }
 
     private String obtenerComentario(int idComentario) {
-        
+
         String comentario = "";
         String query = "SELECT * FROM Comentario WHERE idComentario = ?;";
-        
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement prepared = connection.prepareStatement(query)) {
-             
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query)) {
+
             prepared.setInt(1, idComentario);
             ResultSet r = prepared.executeQuery();
             if (r.next()) {
                 comentario = r.getString("comentario");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
         return comentario;
+    }
+
+    public int registrarComentario(Comentario comentario) {
+        String query = "INSERT INTO Comentario(comentario, fecha, nombre_usuario) VALUES(?,CURRENT_DATE,?);";
+        try (Connection connection = dataSource.getConnection(); 
+         PreparedStatement prepared = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            prepared.setString(1, comentario.getComentario());
+            prepared.setString(2, comentario.getNombreUsuario());
+            prepared.executeUpdate();
+            ResultSet r = prepared.getGeneratedKeys();
+            int n = -1;
+            while (r.next()) {
+                n = r.getInt(1);
+            }
+            return n;
+        } catch (SQLException ex) {
+            System.out.println("error: " + ex);
+        }
+        return -1;
+    }
+
+    public boolean registrarComentarioRevista(Comentario comentario) {
+        String query = "INSERT INTO Comentario_Revista(idComentario, nombre_usuario, idRevista, fecha) VALUES(?,?,?,CURRENT_DATE);";
+        try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query)) {
+            prepared.setInt(1, comentario.getIdComentario());
+            prepared.setString(2, comentario.getNombreUsuario());
+            prepared.setInt(3, comentario.getIdRevista());
+            prepared.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("error: " + ex);
+            return false;
+        }
     }
 
 }

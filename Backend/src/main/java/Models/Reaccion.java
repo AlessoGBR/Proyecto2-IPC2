@@ -16,6 +16,13 @@ public class Reaccion {
     private boolean reaccion;
     private String nombreUsuario;
 
+    public Reaccion(int idReaccion, String fecha, String nombreUsuario, int idRevista) {
+        this.idReaccion = idReaccion;
+        this.fecha = fecha;
+        this.idRevista = idRevista;
+        this.nombreUsuario = nombreUsuario;
+    }
+
     public Reaccion(int idReaccion, boolean reaccion, String fecha, String nombreUsuario, int idRevista) {
         this.idReaccion = idReaccion;
         this.fecha = fecha;
@@ -23,8 +30,8 @@ public class Reaccion {
         this.reaccion = reaccion;
         this.nombreUsuario = nombreUsuario;
     }
-    
-    public Reaccion(){
+
+    public Reaccion() {
     }
 
     public int getIdReaccion() {

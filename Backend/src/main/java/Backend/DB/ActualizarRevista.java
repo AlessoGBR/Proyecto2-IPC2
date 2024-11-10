@@ -80,35 +80,37 @@ public class ActualizarRevista {
         return actualizado;
     }
 
-    public boolean actualizarAceptacion(int idRevista) {
-        String query = "UPDATE Revista SET aprobada = true, denegada = false WHERE idRevista = ?"; 
+    public boolean actualizarAceptacion(int idRevista, double precio) {
+        String query = "UPDATE Revista SET aprobada = true, denegada = false, precio = ? WHERE idRevista = ?";
         boolean actualizado = false;
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            stmt.setInt(1, idRevista);
-            int rowsAffected = stmt.executeUpdate();
+            stmt.setDouble(1, precio);
+            stmt.setInt(2, idRevista);
 
-            actualizado = rowsAffected > 0; 
+            int rowsAffected = stmt.executeUpdate();
+            actualizado = rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Error al actualizar la revista con ID " + idRevista + ": " + e.getMessage()); 
+            System.out.println("Error al actualizar la revista con ID " + idRevista + ": " + e.getMessage());
         }
 
         return actualizado;
     }
 
-    public boolean actualizarDenegada(int idRevista) {
-        String query = "UPDATE Revista SET aprobada = false, denegada = true WHERE idRevista = ?"; 
+    public boolean actualizarDenegada(int idRevista, double precio) {
+        String query = "UPDATE Revista SET aprobada = false, denegada = true, precio = ? WHERE idRevista = ?";
         boolean actualizado = false;
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            stmt.setInt(1, idRevista);
+            stmt.setDouble(1, precio);
+            stmt.setInt(2, idRevista);
             int rowsAffected = stmt.executeUpdate();
 
-            actualizado = rowsAffected > 0; 
+            actualizado = rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Error al actualizar la revista con ID " + idRevista + ": " + e.getMessage()); 
+            System.err.println("Error al actualizar la revista con ID " + idRevista + ": " + e.getMessage());
         }
 
         return actualizado;

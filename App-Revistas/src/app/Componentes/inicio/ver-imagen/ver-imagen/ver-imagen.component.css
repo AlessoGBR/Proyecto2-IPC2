@@ -1,0 +1,5 @@
+.responsive-image {
+    width: 100%;             /* La imagen ocupa todo el ancho del contenedor */
+    height: auto;            /* Mantiene la proporción de la imagen */
+    object-fit: contain;     /* Asegura que la imagen se ajuste sin perder proporciones */
+}

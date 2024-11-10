@@ -4,6 +4,9 @@ import { Observable, catchError, of } from 'rxjs';
 import { Revista } from 'app/Objetos/Revista';
 import { Etiqueta } from 'app/Objetos/Etiqueta';
 import { Anuncio } from 'app/Objetos/Anuncio';
+import { Usuario } from 'app/Objetos/Usuario';
+import { Suscripcion } from 'app/Objetos/Suscripcion';
+import { Anunciante } from 'app/Objetos/Anunciante';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +16,9 @@ export class ObtenerObjetosService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerRevistasPorEditor(usuario: string | null = null): Observable<Revista[]> {
+  obtenerRevistasPorEditor(
+    usuario: string | null = null
+  ): Observable<Revista[]> {
     return this.http
       .post<Revista[]>(`${this.apiUrl}/revistasPorEditor`, usuario, {
         headers: { 'Content-Type': 'application/json' },
@@ -63,16 +68,26 @@ export class ObtenerObjetosService {
       );
   }
 
-  obtenerPerfilUsuario(usuario: string): Observable<any> {
+  obtenerRevistasDenegadas(): Observable<Revista[]> {
     return this.http
-      .post<any>(
+      .get<Revista[]>(`${this.apiUrl}/revistasDenegadas`, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .pipe(
+        catchError(this.handleError<Revista[]>('obtenerRevistasDenegadas', []))
+      );
+  }
+
+  obtenerPerfilUsuario(username: string): Observable<Usuario> {
+    return this.http
+      .post<Usuario>(
         `${this.apiUrl}/obtenerPerfil`,
-        { usuario },
+        { username },
         {
           headers: { 'Content-Type': 'application/json' },
         }
       )
-      .pipe(catchError(this.handleError<any>('obtenerPerfilUsuario', null)));
+      .pipe(catchError(this.handleError<Usuario>('obtenerPerfilUsuario')));
   }
 
   obtenerCliente(usuario: string): Observable<any> {
@@ -87,6 +102,13 @@ export class ObtenerObjetosService {
       .pipe(catchError(this.handleError<any>('obtenerCliente', null)));
   }
 
+  obtenerSuscripciones(nombre_usuario: string, idRevista: string): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${this.apiUrl}/ObtenerSuscripciones?nombre_usuario=${nombre_usuario}&idRevista=${idRevista}`
+    );
+  }
+  
+
   obtenerReacciones(idRevista: number): Observable<any[]> {
     return this.http
       .get<any[]>(`${this.apiUrl}/reacciones?idRevista=${idRevista}`)
@@ -100,9 +122,7 @@ export class ObtenerObjetosService {
   }
 
   obtenerRevista(idRevista: string): Observable<Revista> {
-    return this.http
-      .get<Revista>(`${this.apiUrl}/revista?idRevista=${idRevista}`)
-      .pipe(catchError(this.handleError<Revista>('obtenerRevista')));
+    return this.http.get<Revista>(`${this.apiUrl}/Revista/${idRevista}`);
   }
 
   obtenerAnuncios(usuario: string): Observable<Anuncio[]> {
@@ -116,13 +136,49 @@ export class ObtenerObjetosService {
       .pipe(catchError(this.handleError<Anuncio[]>('obtenerAnuncios', [])));
   }
 
+  ObtenerAnuncios(): Observable<Anuncio[]> {
+    return this.http
+      .get<Anuncio[]>(`${this.apiUrl}/AnunciosLista`, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .pipe(catchError(this.handleError<Anuncio[]>('ObtenerAnuncios', [])));
+  }
+
+  ObtenerAnunciosAprobados(): Observable<Anuncio[]> {
+    return this.http
+      .get<Anuncio[]>(`${this.apiUrl}/AnunciosListaAprobados`, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .pipe(
+        catchError(this.handleError<Anuncio[]>('ObtenerAnunciosAprobados', []))
+      );
+  }
+
   obtenerRevistaSuscripciones(usuario: string): Observable<Revista[]> {
     return this.http
       .post<Revista[]>(`${this.apiUrl}/suscripcionRevistas`, usuario, {
         headers: { 'Content-Type': 'application/json' },
       })
       .pipe(
-        catchError(this.handleError<Revista[]>('obtenerRevistaSuscripciones', []))
+        catchError(
+          this.handleError<Revista[]>('obtenerRevistaSuscripciones', [])
+        )
+      );
+  }
+
+  obtenerAnunciosCliente(): Observable<Anuncio[]> {
+    return this.http
+      .get<Anuncio[]>(`${this.apiUrl}/ObtenerAnunciosCliente`)
+      .pipe(
+        catchError(this.handleError<Anuncio[]>('obtenerAnunciosCliente', []))
+      );
+  }
+
+  obtenerAnunciantes(): Observable<Anunciante[]> {
+    return this.http
+      .get<Anunciante[]>(`${this.apiUrl}/ObtenerAnunciantes`)
+      .pipe(
+        catchError(this.handleError<Anunciante[]>('obtenerAnunciantes', []))
       );
   }
 

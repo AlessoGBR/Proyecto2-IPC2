@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule} from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer , SafeUrl} from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ErrorComponent } from "../../Errores/error/error.component";
 import { RegistroService } from 'app/Servicios/ServicioRegistro/Registro.service';
@@ -20,7 +20,7 @@ import Swal from 'sweetalert2';
 export class RegistroComponent {
   validarForm: FormGroup;
   passwordEquals: boolean = false;
-  mostrarFoto: string = '';
+  mostrarFoto: SafeUrl | null = null;
   foto: File | null = null;
   tipoUsuarios: string[] = ['Lector', 'Administrador', 'Editor', 'Anunciante'];
   tipoUsuario: string = "Lector";
@@ -47,14 +47,16 @@ export class RegistroComponent {
   ngOnInit(): void {}
 
 
-  obtenerImagen(event: Event) {
-    const files = (event.target as HTMLInputElement).files;
-    if (files && files.length > 0) {
-      this.foto = files[0];
+  obtenerImagen(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.foto = input.files[0];
+  
       const reader = new FileReader();
       reader.readAsDataURL(this.foto);
       reader.onload = () => {
-        this.mostrarFoto = this.sanitizer.bypassSecurityTrustUrl(reader.result as string) as string;
+        this.mostrarFoto = this.sanitizer.bypassSecurityTrustUrl(reader.result as string);
+        console.log('Preview de la imagen:', this.mostrarFoto);
       };
     }
   }
@@ -70,43 +72,54 @@ export class RegistroComponent {
 
   onSubmit() {
     if (this.passwordEquals) {
-      const formData = {
-        username: this.validarForm.get('nombreUsuario')?.value,
-        password: this.validarForm.get('password')?.value,
-        descripcion: this.validarForm.get('descripcion')?.value,
-        userType: this.tipoUsuario,
-        etiquetas: this.etiquetasSeleccionadas
-      };
-      console.log('Datos a enviar:', formData);
-  
-      this.registroService.registrarUsuario(formData).subscribe(
-        (response) => {
-          console.log('Registro exitoso:', response);
-          Swal.fire({
-            icon: 'success',
-            title: 'Registro exitoso',
-            text: '¡Bienvenido!',
-            confirmButtonText: 'Aceptar'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.router.navigate(['/InicioSesion']);
-            }
-          });
-        },
-        (error) => {
-          console.error('Error en el registro:', error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error en el registro',
-            text: 'Intenta nuevamente.',
-            confirmButtonText: 'Aceptar'
-          });
+        const formData = new FormData();
+
+        formData.append('username', this.validarForm.get('nombreUsuario')?.value || '');
+        formData.append('password', this.validarForm.get('password')?.value || '');
+        formData.append('descripcion', this.validarForm.get('descripcion')?.value || '');
+        formData.append('userType', this.tipoUsuario || '');
+
+        this.etiquetasSeleccionadas.forEach(etiqueta => {
+            formData.append('etiquetas', JSON.stringify(etiqueta)); 
+        });
+
+        if (this.foto) {
+            formData.append('imagen', this.foto, this.foto.name); 
+        } else {
+            console.warn('No se seleccionó ninguna imagen');
         }
-      );
+
+        console.log('Datos a enviar:', formData);
+
+        this.registroService.registrarUsuario(formData).subscribe(
+            (response) => {
+                console.log('Registro exitoso:', response);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro exitoso',
+                    text: '¡Bienvenido!',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.router.navigate(['/InicioSesion']);
+                    }
+                });
+            },
+            (error) => {
+                console.error('Error en el registro:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error en el registro',
+                    text: 'Intenta nuevamente.',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+        );
     } else {
-      console.error('El formulario no es válido');
+        console.error('El formulario no es válido');
     }
-  }
+}
+
 
   onTipoUsuarioChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;

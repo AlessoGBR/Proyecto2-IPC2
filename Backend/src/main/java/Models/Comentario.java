@@ -24,6 +24,10 @@ public class Comentario {
         this.idRevista = idRevista;
     }
 
+    public Comentario() {
+
+    }
+
     public int getIdComentario() {
         return idComentario;
     }

@@ -21,10 +21,14 @@ public class CrearRevista {
 
     private ConexionPool dataSource = ConexionPool.getInstance();
 
-    private final Revista revista;
+    private  Revista revista;
 
     public CrearRevista(Revista revista) {
         this.revista = revista;
+    }
+    
+    public CrearRevista(){
+    
     }
 
     public boolean crearRevista() {
@@ -39,8 +43,8 @@ public class CrearRevista {
 
     public boolean insertarRevista(){
 
-        String insertSQL = "INSERT INTO Revista (revista ,titulo, descripcion, no_version, aprobada, suscripciones, comentarios, reacciones, fecha, nombre_usuario, denegada) "
-                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO Revista (revista ,titulo, descripcion, no_version, aprobada, suscripciones, comentarios, reacciones, fecha, nombre_usuario, denegada, precio, anuncios) "
+                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection connection = null;        
         try {
@@ -51,10 +55,10 @@ public class CrearRevista {
                 String fechaLocal = revista.getFecha();
                 Date fechaSql = Date.valueOf(fechaLocal);
 
-                stmt.setString(1, "ninguno");
+                stmt.setString(1, revista.getrevistaPath());
                 stmt.setString(2, revista.getTitulo());
                 stmt.setString(3, revista.getDescripcion());
-                stmt.setString(4, revista.getVersion());
+                stmt.setInt(4, revista.getNo_version());
                 stmt.setBoolean(5, false);  // No aprobada inicialmente
                 stmt.setBoolean(6, revista.isSuscripciones());
                 stmt.setBoolean(7, revista.isTieneComentarios());
@@ -62,6 +66,8 @@ public class CrearRevista {
                 stmt.setDate(9, fechaSql);
                 stmt.setString(10, revista.getusuario());
                 stmt.setBoolean(11, false);
+                stmt.setDouble(12, 0);
+                stmt.setBoolean(13, revista.isTieneAnuncios());
                 stmt.executeUpdate();
             }
 
@@ -133,4 +139,39 @@ public class CrearRevista {
         }
     }
 
+    public int verificarCartera(String nombreEditor) {
+        String sql = "SELECT cartera FROM Cartera WHERE nombre_usuario = ?";
+        try (Connection connection = dataSource.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, nombreEditor);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("cartera");
+                } else {
+                    throw new SQLException("No se encontró la revista con el título proporcionado.");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("error: " + ex);
+        }
+        return 0;
+    }
+    
+    public boolean ingresoCarteraEditor(String nombre, int montoTotal) {
+        String sql = "UPDATE Cartera SET cartera = ? WHERE nombre_usuario = ?";
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, montoTotal); 
+            stmt.setString(2, nombre); 
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

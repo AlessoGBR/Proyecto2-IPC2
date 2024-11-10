@@ -1,0 +1,33 @@
+<div class="container shadow-lg my-4">
+    <div class="container">
+      <div class="text-center">
+        <h2>Listado de Anuncios aprobados</h2>
+      </div>
+      <div class="row">
+        <table class="table">
+          <thead class="table-dark text-center">
+            <tr>
+              <th>ID</th>
+              <th>Tipo Anuncio</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Final</th>
+              <th>Costo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody class="text-center table-borderless">
+            <tr *ngFor="let a of anuncios">
+              <td>{{ a.idAnuncio }}</td>
+              <td>{{ a.tipo }}</td>
+              <td>{{ a.fechaInicio | date : "yyyy-MM-dd" }}</td>
+              <td>{{ a.fechaFinal | date : "yyyy-MM-dd" }}</td>
+              <td>{{ a.pago | currency: "Q" }}</td>
+              <td>
+                <p *ngIf="a.activo" class="bg-primary text-white">Activo</p>
+              </td>              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

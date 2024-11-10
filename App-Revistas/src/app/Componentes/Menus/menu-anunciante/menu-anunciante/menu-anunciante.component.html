@@ -4,10 +4,12 @@
       <a class="navbar-brand"></a>
       <a class="navbar-brand" href="InicioLector">
         <img
-          src="http://voxpopulii.in/system/static/dashboard/img/default_user.png"
+          src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
           alt="Avatar Logo"
           style="width: 35px"
           class="rounded-pill"
+          loading="lazy"
+          alt="User Icon"
         />
       </a>
       <a class="navbar-brand">{{ username }}</a>
@@ -45,8 +47,10 @@
           </li>
         </ul>
       </div>
+      <app-cerrar-sesion></app-cerrar-sesion>
     </nav>
   </div>
+  
 </header>
 <router-outlet></router-outlet>
 <div *ngIf="crearAnuncio">
@@ -54,4 +58,7 @@
 </div>
 <div *ngIf="verAnuncios">
   <app-ver-anuncios></app-ver-anuncios>
+</div>
+<div *ngIf="cartera">
+  <app-cartera></app-cartera>
 </div>

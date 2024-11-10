@@ -1,0 +1,59 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Suscripcion" language="java" pageWidth="560" pageHeight="842" whenNoDataType="NoPages" columnWidth="560" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="084a5a9f-8390-42b0-b216-1af6f2d81024">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistaNoList"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="idSuscripcion" class="java.lang.Integer">
+		<description><![CDATA[idSuscripcion]]></description>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<description><![CDATA[fecha]]></description>
+	</field>
+	<field name="nombreUsuario" class="java.lang.String">
+		<description><![CDATA[nombreUsuario]]></description>
+	</field>
+	<columnHeader height="20" splitType="Stretch">
+		<element kind="staticText" uuid="a5a9bf7e-2f72-4740-8f3e-0956aa6af136" mode="Opaque" x="0" y="0" width="60" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ID]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="04b75cf1-7ac8-4dda-97d6-5eaf855f930a"/>
+		</element>
+		<element kind="staticText" uuid="ae2e248e-dff1-49b4-8fc9-5c1e8d340d5a" mode="Opaque" x="60" y="0" width="80" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[FECHA]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="068f2a78-e345-48b0-842d-c14f125eb987"/>
+		</element>
+		<element kind="staticText" uuid="8ae92f1b-51e8-457f-b21d-96cc837fef77" mode="Opaque" x="140" y="0" width="200" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[USUARIO]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ac0c2ce-bb3c-4379-89b9-fd9f6dc7be2e"/>
+		</element>
+		<element kind="staticText" uuid="d6ced8d8-00e6-44d0-b13d-cd423718942e" mode="Opaque" x="340" y="0" width="110" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[GANANCIA]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f5974c3f-3769-4129-a228-93aaa154a178"/>
+		</element>
+		<element kind="staticText" uuid="1f8c52c7-5073-4928-8280-ba3b021d911e" mode="Opaque" x="450" y="0" width="110" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[TOTAL INGRESO]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b79a16a-2e0a-4a78-b2bf-822851c22952"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="textField" uuid="f073aae0-618d-495c-8603-1a086f1fd2e4" x="0" y="0" width="60" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{idSuscripcion}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="04b75cf1-7ac8-4dda-97d6-5eaf855f930a"/>
+			</element>
+			<element kind="textField" uuid="5ecbede3-b578-420a-8f35-9fcda8174a6e" x="60" y="0" width="80" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{fecha}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="068f2a78-e345-48b0-842d-c14f125eb987"/>
+			</element>
+			<element kind="textField" uuid="139ac1d1-8de2-4095-85e4-396451ea9a5e" x="140" y="0" width="200" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{nombreUsuario}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ac0c2ce-bb3c-4379-89b9-fd9f6dc7be2e"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="20" splitType="Stretch">
+		<element kind="textField" uuid="c7bed561-0ad4-4828-9b46-c9e0d427cb38" positionType="FixRelativeToBottom" mode="Opaque" x="340" y="0" width="110" height="20" backcolor="#E0E0E0" hTextAlign="Center" vTextAlign="Middle"/>
+		<element kind="textField" uuid="13925812-c128-4646-945a-af925282c491" positionType="FixRelativeToBottom" mode="Opaque" x="450" y="0" width="110" height="20" backcolor="#E0E0E0" hTextAlign="Center" vTextAlign="Middle"/>
+		<element kind="staticText" uuid="58231bd6-4cb5-4f66-8148-7b46b4e4000e" positionType="FixRelativeToBottom" mode="Opaque" x="0" y="0" width="340" height="20" backcolor="#E0E0E0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[TOTAL DE SUSCRIPCIONES]]></text>
+		</element>
+	</columnFooter>
+</jasperReport>

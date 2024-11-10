@@ -1,0 +1,63 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Comentario" language="java" pageWidth="560" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="560" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5905c5d3-4457-4c29-ad09-09099aaecf0d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="idComentario" class="java.lang.Integer">
+		<description><![CDATA[idComentario]]></description>
+	</field>
+	<field name="comentario" class="java.lang.String">
+		<description><![CDATA[comentario]]></description>
+	</field>
+	<field name="nombreUsuario" class="java.lang.String">
+		<description><![CDATA[nombreUsuario]]></description>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<description><![CDATA[fecha]]></description>
+	</field>
+	<columnHeader height="20" splitType="Stretch">
+		<element kind="staticText" uuid="2cc8e269-54eb-48eb-88fe-86dfb77d721c" mode="Opaque" x="0" y="0" width="50" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ID]]></text>
+			<box>
+				<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="fdc3602b-619c-4e45-9a38-f1c974363296" mode="Opaque" x="50" y="0" width="290" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[COMENTARIO]]></text>
+			<box>
+				<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="e4c400cb-f744-4264-bb2c-35be18d02acf" mode="Opaque" x="340" y="0" width="110" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[USUARIO]]></text>
+			<box>
+				<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="fe4028eb-c473-4ae4-91ff-ee4fc58b38ee" mode="Opaque" x="450" y="0" width="110" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[FECHA]]></text>
+			<box>
+				<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<element kind="textField" uuid="d2cce0c4-1d1d-4d25-9808-a30a96e3bb24" x="0" y="0" width="50" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{idComentario}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01948e31-c533-4735-82f9-515f7f7effad"/>
+			</element>
+			<element kind="textField" uuid="ca798a8f-147f-4f3c-b6a1-c999f86f1d15" x="50" y="0" width="290" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{comentario}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="66235952-928c-49a9-b350-be166fd63af0"/>
+			</element>
+			<element kind="textField" uuid="dd057c1b-b2cc-428c-9af4-ae6985837af0" x="340" y="0" width="110" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{nombreUsuario}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38f26954-33c5-4fca-9153-dcbfad8fc120"/>
+			</element>
+			<element kind="textField" uuid="25d88d0d-f5a5-4e05-a44c-efdec68612f5" x="450" y="0" width="110" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{fecha}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8827c93d-0c2d-4bfb-b59e-dca297bdafe7"/>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

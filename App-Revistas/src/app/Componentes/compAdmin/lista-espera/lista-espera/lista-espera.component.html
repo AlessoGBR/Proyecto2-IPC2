@@ -10,8 +10,7 @@
           <th>Título</th>
           <th>Usuario</th>
           <th>Estado</th>
-          <th>Opciones</th>
-          <th>Aceptar / Denegar</th>
+          <th>Revisar</th>
         </tr>
       </thead>
       <tbody class="table-light">
@@ -28,27 +27,12 @@
             </p>
           </td>
           <td>
-            <a
-              class="btn btn-sm btn-info mx-1"
-              href="InicioAdmin/EstadoRevista/{{ r.idRevista }}"
-            >
-              <i class="bi bi-eye-fill"> Ver revista</i>
-            </a>
-          </td>
-          <td>
             <button
               type="button"
               class="btn btn-success"
-              (click)="aprobarRevista(r.idRevista)"              
+              [routerLink]="['/InicioAdmin/estadoRevista', r.idRevista]"          
             >
-              Aceptar
-            </button>
-            <button
-              type="button"
-              class="btn btn-info"
-              (click)="denegarRevista(r.idRevista)"
-            >
-              Denegar
+              Ver
             </button>
           </td>
         </tr>

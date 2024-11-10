@@ -1,0 +1,114 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="R1" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04d3619b-f2d3-42f6-b139-814e661d95ed">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistaNoList"/>
+	<import>Models.*</import>
+	<parameter name="REVISTA" forPrompting="false" class="Models.Revista"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="idRevista" class="java.lang.Integer">
+		<description><![CDATA[revista.idRevista]]></description>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<description><![CDATA[revista.titulo]]></description>
+	</field>
+	<field name="version" class="java.lang.Integer">
+		<description><![CDATA[revista.no_version]]></description>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<description><![CDATA[revista.fecha]]></description>
+	</field>
+	<field name="suscripciones" class="java.util.List">
+		<description><![CDATA[suscripciones]]></description>
+	</field>
+	<title height="72">
+		<element kind="frame" uuid="77517ca8-3260-4de7-9959-5b15a2778a65" mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699">
+			<element kind="staticText" uuid="30f50369-d801-41da-bfdb-89311b310ca7" x="0" y="20" width="595" height="43" forecolor="#FFFFFF" fontSize="34.0" bold="true" hTextAlign="Center">
+				<text><![CDATA[Reporte de Suscripciones]]></text>
+			</element>
+			<element kind="staticText" uuid="e0e85ad6-1a1a-48ef-85ae-0bceab18bc1e" x="0" y="20" width="595" height="43" forecolor="#FFFFFF" fontSize="30.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Reporte de Suscripciones]]></text>
+			</element>
+		</element>
+	</title>
+	<detail>
+		<band height="95">
+			<element kind="staticText" uuid="1c0a41ab-67bd-4c67-83c2-fa4d3f1193ef" mode="Opaque" x="0" y="10" width="60" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[ID]]></text>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="ede23889-1d95-4c4f-8ffa-f36079db21f2" mode="Opaque" x="60" y="10" width="280" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[TÍTULO]]></text>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="1757d374-09e5-4e90-820a-dc673cd69152" mode="Opaque" x="340" y="10" width="110" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[FECHA]]></text>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="9d3860e5-9c40-4211-8c73-956c1c0034d5" mode="Opaque" x="450" y="10" width="110" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[VERSIÓN]]></text>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="9f97e065-cea2-4a86-bcb9-7462c9f6649c" x="0" y="30" width="60" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{idRevista}]]></expression>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="df7248f2-a4ab-400b-ab1e-95650e427ad9" x="60" y="30" width="280" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{titulo}]]></expression>
+			</element>
+			<element kind="textField" uuid="aef5bed8-d2fe-418a-801d-5c600cadf1c8" x="340" y="30" width="110" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{fecha}]]></expression>
+			</element>
+			<element kind="textField" uuid="aa0cd825-c5f9-4f0f-839c-3ba24810871f" x="450" y="30" width="110" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{version}]]></expression>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="48cb3f99-73f6-428b-a3d0-8f719c1e57e0" mode="Opaque" x="0" y="50" width="50" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[ID]]></text>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="6476801b-63ae-4ea5-b684-516ee54a33ce" mode="Opaque" x="50" y="50" width="340" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[USUARIO LECTOR]]></text>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="0e7eecfd-d54f-48c3-ace3-998710cb2bc3" mode="Opaque" x="390" y="50" width="170" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[FECHA INICIO]]></text>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="subreport" uuid="8ded8062-80b3-4069-bcdc-effb4b4256c8" x="0" y="70" width="560" height="20">
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{suscripciones})]]></dataSourceExpression>
+				<expression><![CDATA["/Reportes/EditorR/SubER/SuscripcionOb.jasper"]]></expression>
+				<parameter name="suscripciones">
+					<expression><![CDATA[$F{suscripciones}]]></expression>
+				</parameter>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="17">
+		<element kind="textField" uuid="9b2db03a-c6da-4eb3-8e91-af027786d8ba" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" hTextAlign="Right">
+			<expression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></expression>
+		</element>
+		<element kind="textField" uuid="7a99e745-b122-4c72-8612-e79234c73f85" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" evaluationTime="Report">
+			<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="ae909ba9-25db-4aca-a3ee-ff347d308a01" x="0" y="4" width="100" height="13" pattern="EEEEE dd MMMMM yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>

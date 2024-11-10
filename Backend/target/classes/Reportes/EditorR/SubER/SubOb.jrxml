@@ -1,0 +1,43 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="SubOb" language="java" pageWidth="560" pageHeight="842" columnWidth="560" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="dd5506ae-dac8-4145-be04-60f2e9cf57ec">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistaNoList"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="idRevista" class="java.lang.Integer">
+		<description><![CDATA[idRevista]]></description>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<description><![CDATA[titulo]]></description>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<description><![CDATA[fecha]]></description>
+	</field>
+	<field name="anuncios" class="java.lang.Boolean">
+		<description><![CDATA[anuncios]]></description>
+	</field>
+	<field name="monto" class="java.lang.Double">
+		<description><![CDATA[monto]]></description>
+	</field>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<element kind="textField" uuid="92286bfd-c7db-4aa1-b510-c2e35ea70e60" x="0" y="0" width="60" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{idRevista}]]></expression>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="38f23593-eed9-4aa6-afdb-97c8f984aa91" x="60" y="0" width="280" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{titulo}]]></expression>
+			</element>
+			<element kind="textField" uuid="6dede39b-d4c7-435d-8116-8af2daf9d4e3" x="340" y="0" width="110" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{fecha}]]></expression>
+			</element>
+			<element kind="textField" uuid="7132a2f3-585a-4ef2-a543-97f85746b637" x="450" y="0" width="110" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{anuncios} ? new Integer(200) : $F{anuncios}]]></expression>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+</jasperReport>

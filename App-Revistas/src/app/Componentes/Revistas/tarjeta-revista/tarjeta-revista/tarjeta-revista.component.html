@@ -7,7 +7,6 @@
   
       <a
         class="btn btn-info btn-sm mx-2"
-        (click)="darMeGusta()"
         id="botonMG{{ revista.idRevista }}"
       >
         Me Gusta
@@ -21,7 +20,7 @@
       <a
         class="btn btn-outline-info btn-sm mx-1"
         role="button"
-        href="InicioLector/Previsualizar/{{ revista.idRevista }}"
+        [routerLink]="['/InicioLector/Previsualizar', revista.idRevista]"
       >
         Previsualizar
       </a>    

@@ -10,6 +10,9 @@ import { MenuEditorComponent } from './Componentes/Menus/menu-editor/menu-editor
 import { MenuAdminComponent } from './Componentes/Menus/menu-admin/menu-admin/menu-admin.component';
 import { MenuAnuncianteComponent } from './Componentes/Menus/menu-anunciante/menu-anunciante/menu-anunciante.component';
 import { PublicarRevistaComponent } from './Componentes/Revistas/publicar-revista/publicar-revista/publicar-revista.component';
+import { PrevisualizarComponent } from './Componentes/Revistas/previsualizar/previsualizar/previsualizar.component';
+import { VisualizarComponent } from './Componentes/Revistas/visualizar/visualizar/visualizar.component';
+import { EstadoRevistaComponent } from './Componentes/compAdmin/estado-revista/estado-revista/estado-revista.component';
 
 export const routes: Routes = [
     {path: 'Inicio', component: InicioComponent},
@@ -23,5 +26,9 @@ export const routes: Routes = [
     {path: 'InicioAdmin', component: MenuAdminComponent},
     {path: 'InicioAnunciante', component:MenuAnuncianteComponent},
     {path: 'crear-revista', component:PublicarRevistaComponent},
+    {path: 'InicioLector/Previsualizar/:idRevista', component:PrevisualizarComponent},
+    {path: 'InicioLector/Visualizar/:idRevista', component:VisualizarComponent},
+    {path: 'InicioAdmin/Visualizar/:idRevista', component:VisualizarComponent},
+    {path: 'InicioAdmin/estadoRevista/:idRevista', component:EstadoRevistaComponent},
     {path: '', redirectTo: '/Inicio',pathMatch: 'full'}
 ];

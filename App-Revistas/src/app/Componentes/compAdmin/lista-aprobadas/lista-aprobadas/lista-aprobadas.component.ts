@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Revista } from 'app/Objetos/Revista';
 import { CommonModule } from '@angular/common';
 import { ObtenerObjetosService } from 'app/Servicios/ObtenerObjetos/obtener-objetos.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-lista-aprobadas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './lista-aprobadas.component.html',
   styleUrl: './lista-aprobadas.component.css',
 })

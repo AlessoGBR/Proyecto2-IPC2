@@ -1,0 +1,24 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="AnuncioSubrePort" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb81a1d7-3620-417b-8f85-462de30fa56c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="idAnuncio" class="java.lang.Integer">
+		<description><![CDATA[idAnuncio]]></description>
+	</field>
+	<field name="tipo" class="java.lang.String">
+		<description><![CDATA[tipo]]></description>
+	</field>
+	<background splitType="Stretch"/>
+	<columnHeader height="8" splitType="Stretch">
+		<element kind="textField" uuid="6f0db1ef-5f2a-4324-9c04-4a6b7941b142" x="0" y="-12" width="280" height="20" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{idAnuncio}]]></expression>
+		</element>
+		<element kind="textField" uuid="4be369c3-20ed-41ca-a2b2-2683b26e11af" x="280" y="-12" width="280" height="20" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{tipo}.equals("TEXTO") ? "TEXTO" : ($F{tipo}.equals("IMAGEN CON TEXTO") ? "IMAGEN CON TEXTO" : "VIDEO")
+]]></expression>
+		</element>
+	</columnHeader>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter splitType="Stretch"/>
+	<summary splitType="Stretch"/>
+</jasperReport>

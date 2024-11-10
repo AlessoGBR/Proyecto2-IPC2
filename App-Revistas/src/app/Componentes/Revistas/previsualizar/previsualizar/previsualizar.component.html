@@ -1,0 +1,77 @@
+<div class="container shadow-lg my-4">
+    <div class="row p-2">
+      <div class="col-sm-4 border">
+        <h2 class="my-3">Escritor: {{revista.usuario}}</h2>
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/InicioLector/Perfil', revista.usuario]">
+              Ver Perfil del Creador
+            </a>
+          </li>
+        </ul>
+  
+        <h3 class="mt-2">Interacción</h3>
+        <div class="d-flex justify-content-center gap-2">
+          <button *ngIf="revista.tieneReacciones" class="btn btn-info btn-sm mx-2" (click)="darMeGusta()">
+            Me Gusta <span class="badge bg-danger">{{ cantidadMG }}</span>
+          </button>
+          <button *ngIf="revista.tieneComentarios" class="btn btn-info btn-sm">
+            Comentarios <span class="badge bg-primary">{{ cantidadCom }}</span>
+          </button>
+        </div>
+        <div class="text-center mt-3">
+          <a *ngIf="revista.suscripciones && !tieneSub" 
+             class="btn btn-success" 
+             (click)="Suscribirse()">
+            Suscribirse 
+          </a>
+          <a *ngIf="!revista.suscripciones || tieneSub"
+             class="btn btn-info"
+             [routerLink]="['/InicioLector/Visualizar', revista.idRevista]">
+            Visualizar
+          </a>
+        </div>
+        <div class="text-center mt-3">
+          <a *ngIf="tieneSub"
+             class="btn btn-danger"
+             (click)="Dessuscribirse()"
+             >
+            Anular suscripcion
+          </a>
+        </div>
+        
+      </div>
+  
+      <div class="col-sm-8 border">
+        <div class="my-2">
+          <h2>{{ revista.titulo }}, No. {{ revista.version }}</h2>
+          <h5>Fecha de creación: {{ revista.fecha | date : 'dd-MM-yyyy' }}</h5>
+          <p>{{ revista.descripcion }}</p>
+        </div>
+  
+        <h2 class="mt-5">{{ revista.tieneComentarios ? 'Comentarios' : 'Comentarios (Deshabilitados)' }}</h2>
+  
+        <div *ngIf="revista.tieneComentarios">
+          <div class="input-group was-validated mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Escriba un comentario . . ."
+              [(ngModel)]="comentarioNuevo"
+              minlength="10"
+              maxlength="200"
+              required
+            />
+            <button class="btn btn-primary" (click)="hacerComentario()">Agregar</button>
+          </div>
+  
+          <div class="overflow-auto" style="height: 500px;">
+            <div *ngFor="let coment of comentarios">
+              <app-comentario [comentario]="coment"></app-comentario>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

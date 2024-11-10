@@ -1,0 +1,21 @@
+<div class="container rounded-3 shadow-lg my-5">
+    <div class="container p-3">         
+      <div *ngIf="revista" class="row">
+        <div class="col-sm-4 rounded-3 border">
+          <div class="my-4">
+            <h2>{{ revista.titulo }}, No. {{ revista.version }}</h2>
+            <h5>Fecha de creación: {{ revista.fecha | date: "dd-MM-yyyy" }}</h5>
+            <p>
+              {{ revista.descripcion }}
+            </p>
+          </div>
+        </div>
+        <div class="col rounded-3" style="height: 700px">
+            <app-ver-revista [path]="revista.revistaPath ??''"></app-ver-revista>
+        </div>        
+      </div>   
+      <div *ngIf="revista.tieneAnuncios">
+        <app-anuncio></app-anuncio>
+      </div>      
+    </div>
+  </div>

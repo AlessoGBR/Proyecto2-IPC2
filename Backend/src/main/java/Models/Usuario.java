@@ -17,13 +17,19 @@ public class Usuario {
     private String userType;
     private String descripcion;
     private String foto;
+    private int tipoUsuario;
     private List<Etiqueta> etiquetas;
 
-    public Usuario() {
-        
+    public Usuario(int tipoUsuario, String nombre, String password) {
+        this.username = nombre;
+        this.tipoUsuario = tipoUsuario;
     }
-    
-    public Usuario(String username, String password){
+
+    public Usuario() {
+
+    }
+
+    public Usuario(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -72,10 +78,17 @@ public class Usuario {
         return etiquetas;
     }
 
+    public int getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(int tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public void setEtiquetas(List<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
-    }    
-    
+    }
 
     public boolean isValid() {
         return username != null && userType != null && descripcion != null

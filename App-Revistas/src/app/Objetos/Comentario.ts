@@ -1,10 +1,8 @@
 export class Comentario {
-
-    constructor(
-        public idRevista: number,
-        public texto: string,
-        public fecha: string,
-        public nombreUsuario: string
-      ) {}
-
+  constructor(
+    public idRevista: number,
+    public comentario: string,
+    public nombreUsuario: string,
+    public fecha?: string
+  ) {}
 }

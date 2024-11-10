@@ -2,7 +2,7 @@
   <a class="navbar-brand"></a>
   <a class="navbar-brand" href="InicioAdmin">
     <img
-      src="http://voxpopulii.in/system/static/dashboard/img/default_user.png"
+      src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
       alt="Avatar Logo"
       style="width: 35px"
       class="rounded-pill"
@@ -12,34 +12,30 @@
   <div class="collapse navbar-collapse" id="navbarsExample04">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="InicioAdmin/ListaEspera">Inicio</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-          Anuncios
-        </a>
-        <ul class="dropdown-menu">
-          <li>
-            <a class="dropdown-item" href="InicioAdmin/VerAnuncios"
-              >Ver Anuncios</a
-            >
-          </li>
-          <li>
-            <a class="dropdown-item" href="InicioAdmin/VerAnunciantes"
-              >Ver Anunciantes</a
-            >
-          </li>
-        </ul>
+        <a class="nav-link" (click)="Revistas()">Inicio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="InicioAdmin/Reportes1"> Reportes </a>
+        <a class="nav-link" data-bs-toggle="dropdown" (click)="Anuncios()">
+          Anuncios
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="Reportes()"> Reportes </a>
       </li>
     </ul>
   </div>
+  <app-cerrar-sesion></app-cerrar-sesion>
 </nav>
 <router-outlet></router-outlet>
-
-<app-lista-espera></app-lista-espera>
-<!--
-<app-lista-aprobadas></app-lista-aprobadas>
--->
+<div *ngIf="revistas">
+  <app-lista-espera></app-lista-espera>
+  <app-lista-aprobadas></app-lista-aprobadas>
+  <app-lista-denegadas></app-lista-denegadas>
+</div>
+<div *ngIf="anuncios">
+  <app-ver-anuncios></app-ver-anuncios>
+  <app-anuncios-aprobados></app-anuncios-aprobados>
+</div>
+<div *ngIf="reportes">
+  <app-reporte-admin></app-reporte-admin>
+</div>

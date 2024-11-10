@@ -15,7 +15,7 @@ public class Anuncio {
     private int idAnuncio;
     private String texto;
     private String urlVideo;
-    private String pathImagen;
+    private String imagen;
     private boolean activo;
     private Date fechaInicio;
     private Date fechaFinal;
@@ -23,16 +23,17 @@ public class Anuncio {
     private String nombreAnunciante;
     private String tipo;
     private int diasDuracion;
+    private int tipoAnuncio;
 
     public Anuncio() {
-        
+
     }
 
-    public Anuncio(int idAnuncio, String texto, String urlVideo, String pathImagen, boolean activo, Date fechaInicio, Date fechaFinal, double pago, String nombreAnunciante, String tipo) {
+    public Anuncio(int idAnuncio, String texto, String urlVideo, String imagen, boolean activo, Date fechaInicio, Date fechaFinal, double pago, String tipo, String nombreAnunciante) {
         this.idAnuncio = idAnuncio;
         this.texto = texto;
         this.urlVideo = urlVideo;
-        this.pathImagen = pathImagen;
+        this.imagen = imagen;
         this.activo = activo;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
@@ -40,7 +41,7 @@ public class Anuncio {
         this.nombreAnunciante = nombreAnunciante;
         this.tipo = tipo;
     }
-    
+
     public int getIdAnuncio() {
         return idAnuncio;
     }
@@ -66,11 +67,11 @@ public class Anuncio {
     }
 
     public String getPathImagen() {
-        return pathImagen;
+        return imagen;
     }
 
-    public void setPathImagen(String pathImagen) {
-        this.pathImagen = pathImagen;
+    public void setPathImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public boolean isActivo() {
@@ -127,6 +128,22 @@ public class Anuncio {
 
     public void setDiasDuracion(int diasDuracion) {
         this.diasDuracion = diasDuracion;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public int getTipoAnuncio() {
+        return tipoAnuncio;
+    }
+
+    public void setTipoAnuncio(int tipoAnuncio) {
+        this.tipoAnuncio = tipoAnuncio;
     }
 
 }

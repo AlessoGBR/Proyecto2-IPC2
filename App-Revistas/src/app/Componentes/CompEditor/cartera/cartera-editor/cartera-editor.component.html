@@ -1,0 +1,46 @@
+<div class="container rounded-3 shadow-lg my-4" style="max-width: 725px">
+    <form class="was-validated" [formGroup]="carteraForm" (ngSubmit)="onSubmit()">
+      <div class="container p-4">
+        <div class="text-center mb-3">
+          <h1>Cartera</h1>
+        </div>
+        <div class="mb-3">
+          <label for="monto" class="form-label"
+            >Saldo de la cartera: Q{{ total }}</label
+          >
+        </div>
+        <div class="mb-3">
+          <label for="monto" class="form-label">Ingrese el monto:</label>
+          <input
+            type="number"
+            id="monto"
+            formControlName="monto"
+            class="form-control"
+            required
+            placeholder="Ejemplo: 100"
+          />
+          <div
+            *ngIf="
+              carteraForm.get('monto')?.invalid &&
+              carteraForm.get('monto')?.touched
+            "
+            class="invalid-feedback"
+          >
+            El monto es requerido y debe ser un número positivo.
+          </div>
+        </div>
+  
+        <div class="d-grid my-3">
+          <button
+            type="submit"
+            id="boton"
+            class="btn btn-success"
+            [disabled]="carteraForm.invalid"
+          >
+            Ingreso a cartera
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

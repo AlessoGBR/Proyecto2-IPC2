@@ -4,16 +4,14 @@
  */
 package Backend.DB;
 
+import Models.Anunciante;
 import Models.Anuncio;
-import Models.Revista;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +25,7 @@ public class ObtenerAnuncios {
 
     }
 
-    public List<Anuncio> obtenerRevistasAprobadas(int nombre_usuario) {
+    public List<Anuncio> obtenerAnunciosAprobados(int nombre_usuario) {
         List<Anuncio> anuncios = new ArrayList<>();
         String query = "SELECT * FROM Anuncio WHERE nombre_anunciante = ?";
 
@@ -35,11 +33,14 @@ public class ObtenerAnuncios {
             stmt.setInt(1, nombre_usuario);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Anuncio anuncio = new Anuncio(); 
+                    Anuncio anuncio = new Anuncio();
                     anuncio.setIdAnuncio(rs.getInt("idAnuncio"));
-                    anuncio.setTipo(rs.getString("tipo"));                    
+                    anuncio.setTipo(rs.getString("tipo"));
+                    anuncio.setTexto(rs.getString("texto"));
+                    anuncio.setPathImagen(rs.getString("path_imagen"));
+                    anuncio.setUrlVideo(rs.getString("url_video"));
                     anuncio.setFechaInicio(rs.getDate("fecha_inicio"));
-                    anuncio.setFechaFinal(rs.getDate("fecha_final"));                     
+                    anuncio.setFechaFinal(rs.getDate("fecha_final"));
                     anuncio.setPago(rs.getDouble("pago"));
                     anuncio.setActivo(rs.getBoolean("activo"));
                     anuncio.setNombreAnunciante(rs.getString("nombre_anunciante"));
@@ -48,6 +49,85 @@ public class ObtenerAnuncios {
             }
         } catch (SQLException e) {
             System.out.println("Error al consultar las revistas aprobadas: " + e.getMessage());
+        }
+
+        return anuncios;
+    }
+
+    public List<Anuncio> obtenerAnuncios() {
+        List<Anuncio> anuncios = new ArrayList<>();
+        String query = "SELECT * FROM Anuncio WHERE activo = false";
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Anuncio anuncio = new Anuncio();
+                anuncio.setIdAnuncio(rs.getInt("idAnuncio"));
+                anuncio.setTipo(rs.getString("tipo"));
+                anuncio.setFechaInicio(rs.getDate("fecha_inicio"));
+                anuncio.setFechaFinal(rs.getDate("fecha_final"));
+                anuncio.setPago(rs.getDouble("pago"));
+                anuncio.setActivo(rs.getBoolean("activo"));
+                anuncio.setNombreAnunciante(rs.getString("nombre_anunciante"));
+                anuncios.add(anuncio);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("error: " + e);
+        }
+
+        return anuncios;
+    }
+
+    public List<Anuncio> obtenerAnunciosAprobados() {
+        List<Anuncio> anuncios = new ArrayList<>();
+        String query = "SELECT * FROM Anuncio WHERE activo = true";
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Anuncio anuncio = new Anuncio();
+                anuncio.setIdAnuncio(rs.getInt("idAnuncio"));
+                anuncio.setTipo(rs.getString("tipo"));
+                anuncio.setFechaInicio(rs.getDate("fecha_inicio"));
+                anuncio.setFechaFinal(rs.getDate("fecha_final"));
+                anuncio.setPago(rs.getDouble("pago"));
+                anuncio.setActivo(rs.getBoolean("activo"));
+                anuncio.setNombreAnunciante(rs.getString("nombre_anunciante"));
+                anuncios.add(anuncio);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("error: " + e);
+        }
+
+        return anuncios;
+    }
+
+    public List<Anuncio> obtenerAnunciosCliente() {
+
+        List<Anuncio> anuncios = new ArrayList<>();
+        String query = "SELECT * FROM Anuncio WHERE activo = true";
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Anuncio anuncio = new Anuncio();
+                anuncio.setIdAnuncio(rs.getInt("idAnuncio"));
+                anuncio.setTipo(rs.getString("tipo"));
+                anuncio.setTexto(rs.getString("texto"));
+                anuncio.setPathImagen(rs.getString("path_imagen"));
+                anuncio.setUrlVideo(rs.getString("url_video"));
+                anuncio.setFechaInicio(rs.getDate("fecha_inicio"));
+                anuncio.setFechaFinal(rs.getDate("fecha_final"));
+                anuncio.setPago(rs.getDouble("pago"));
+                anuncio.setActivo(rs.getBoolean("activo"));
+                anuncio.setNombreAnunciante(rs.getString("nombre_anunciante"));
+                anuncios.add(anuncio);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("error: " + e);
         }
 
         return anuncios;
@@ -68,5 +148,53 @@ public class ObtenerAnuncios {
             System.out.println("error " + ex);
         }
         return 0;
+    }
+
+    public boolean actualizarAceptacion(int idAnuncio) {
+        String query = "UPDATE Anuncio SET activo = true WHERE idAnuncio = ?";
+        boolean actualizado = false;
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, idAnuncio);
+            int rowsAffected = stmt.executeUpdate();
+
+            actualizado = rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar la revista con ID " + idAnuncio + ": " + e.getMessage());
+        }
+
+        return actualizado;
+    }
+
+    public boolean actualizarDenegada(int idAnuncio) {
+        String query = "UPDATE Anuncio SET activo = false WHERE idAnuncio = ?";
+        boolean actualizado = false;
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, idAnuncio);
+            int rowsAffected = stmt.executeUpdate();
+
+            actualizado = rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar la revista con ID " + idAnuncio + ": " + e.getMessage());
+        }
+
+        return actualizado;
+    }
+    
+    public ArrayList<Anunciante> obtenerAnunciates() {
+        ArrayList<Anunciante> anunciantes = new ArrayList<>();
+        String query = "SELECT * FROM Anunciante;";
+        try {
+            Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                anunciantes.add(new Anunciante(resultado.getString("nombre_usuario"), resultado.getInt("idAnunciante")));
+            }
+        } catch (SQLException e) {
+        }
+        return anunciantes;
     }
 }

@@ -24,6 +24,10 @@ public class JakartaRestConfiguration extends Application {
         resources.add(Resources.ObtenerReaccion.class);
         resources.add(Resources.ObtenerComentarios.class);
         resources.add(Resources.RegistroAnuncio.class);
+        resources.add(Resources.ObtenerPDF.class);
+        resources.add(Resources.AdminReportes.class);
+        resources.add(Resources.EditorReportes.class);
+        resources.add(Resources.Archivo.class);
         resources.add(Filters.ConfiguracionCors.class);                   // Filtro CORS
         return resources;
     }

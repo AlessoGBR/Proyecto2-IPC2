@@ -1,0 +1,19 @@
+<div class="container border rounded p-3">
+  <div class="row align-items-center mb-2">
+    <div class="col-auto">
+      <h5>
+        <a>{{ comentario.nombreUsuario }}</a>
+      </h5>
+    </div>
+    <div class="col text-end">
+      <h6 class="text-secondary">
+        {{ comentario.fecha | date: "dd-MM-yyyy" }}
+      </h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>{{ comentario.comentario }}</p>
+    </div>
+  </div>
+</div>

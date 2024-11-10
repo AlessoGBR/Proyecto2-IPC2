@@ -1,0 +1,138 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="R1A" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3afc262c-7e54-4cc6-81a6-61b17a3e0f26">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistaNoList"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="suscripciones" class="java.util.List">
+		<description><![CDATA[suscripciones]]></description>
+	</field>
+	<field name="idRevista" class="java.lang.Integer">
+		<description><![CDATA[revista.idRevista]]></description>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<description><![CDATA[revista.titulo]]></description>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<description><![CDATA[revista.fecha]]></description>
+	</field>
+	<field name="precio" class="java.lang.Double">
+		<description><![CDATA[revista.precio]]></description>
+	</field>
+	<field name="usuario" class="java.lang.String">
+		<description><![CDATA[revista.usuario]]></description>
+	</field>
+	<title height="72">
+		<element kind="frame" uuid="2c951251-8bc1-4d41-8ed2-1160d09feac0" mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699">
+			<element kind="staticText" uuid="d49da8b3-b6fc-4020-b8dd-4a128fb30205" x="0" y="20" width="595" height="43" forecolor="#FFFFFF" fontSize="30.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Reporte de Ganancias]]></text>
+			</element>
+		</element>
+	</title>
+	<pageHeader height="13"/>
+	<detail>
+		<band height="86">
+			<element kind="frame" uuid="d60f1ed0-d00e-4da3-b658-0187c2f7a36d" x="0" y="0" width="560" height="40">
+				<element kind="textField" uuid="535aa887-2d38-45b2-9972-a6661159f6b3" x="0" y="20" width="40" height="20" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{idRevista}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d96e4b05-e4ef-4909-89e6-d89ab3070b80"/>
+				</element>
+				<element kind="textField" uuid="f46c1a56-f93a-49fd-aa87-9db2fc6cb2f3" x="40" y="20" width="250" height="20" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{titulo}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cb7aaed5-0fbf-42fe-959c-3f866fb6fc9c"/>
+				</element>
+				<element kind="textField" uuid="5b05c653-4452-4b0a-b887-48d01837ac4d" x="290" y="20" width="90" height="20" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{fecha}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8bec3ad0-438f-441b-b6d2-f35e5efdfdd7"/>
+				</element>
+				<element kind="textField" uuid="b43201e2-7288-4cc4-86f1-2b8485f4d9ac" x="470" y="20" width="90" height="20" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{precio}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="212c5d26-9963-44af-acbc-a39e134ef3e8"/>
+				</element>
+				<element kind="staticText" uuid="1a0c7c37-1324-4448-a5e5-36ee283a0605" mode="Opaque" x="0" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[ID]]></text>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="staticText" uuid="b7f4175e-94f7-4d23-83c3-6d75cdeeec16" mode="Opaque" x="40" y="0" width="250" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[TÍTULO]]></text>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="staticText" uuid="d7a3b16c-9805-4002-baf1-203c7dc579b3" mode="Opaque" x="290" y="0" width="90" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[FECHA]]></text>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="staticText" uuid="955ba25f-34e9-41e6-8734-8740f4352a50" mode="Opaque" x="380" y="0" width="90" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[EDITOR]]></text>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="staticText" uuid="63ee3ce7-e383-4b40-ae19-d0761c3b07bc" mode="Opaque" x="470" y="0" width="90" height="20" forecolor="#FFFFFF" backcolor="#0E87EB" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[COSTO]]></text>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="staticText" uuid="eb27c581-d523-4af1-80d4-38e403b17fd3" mode="Opaque" x="0" y="40" width="470" height="20" forecolor="#000000" backcolor="#F7F7F7" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[COSTO TOTAL DE REVISTA]]></text>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="04a2fe83-fbbd-408c-a625-245c182d7886" mode="Opaque" x="470" y="40" width="90" height="20" forecolor="#000000" backcolor="#F7F7F7" hTextAlign="Center" vTextAlign="Middle">
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="subreport" uuid="76dc9f3a-1432-482d-9575-1c69aaee67f3" x="0" y="62" width="560" height="20">
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{suscripciones})]]></dataSourceExpression>
+					<expression><![CDATA["/Reportes/AdminR/SubAR/Suscripcion.jasper"]]></expression>
+					<returnValue toVariable="ingresoGlobal" calculation="Sum" subreportVariable="totalIngreso"/>
+					<returnValue toVariable="gananciaGlobal" calculation="Sum" subreportVariable="totalGanancia"/>
+					<parameter name="suscripciones">
+						<expression><![CDATA[$F{suscripciones}]]></expression>
+					</parameter>
+				</element>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="17">
+		<element kind="textField" uuid="d08e86db-21f5-49b7-94d8-e1f24783cdab" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" hTextAlign="Right">
+			<expression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></expression>
+		</element>
+		<element kind="textField" uuid="ccd54cd1-5968-4c32-87b2-d777d18887f7" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" evaluationTime="Report">
+			<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="bf387844-d845-4c2c-8ab8-f108e9057e3b" x="0" y="4" width="100" height="13" pattern="EEEEE dd MMMMM yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="74">
+		<element kind="staticText" uuid="2648c574-f442-4fdb-8757-244363333480" positionType="FixRelativeToBottom" mode="Opaque" x="0" y="10" width="470" height="20" forecolor="#000000" backcolor="#D9D9D9" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[COSTO TOTAL]]></text>
+			<box>
+				<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="e6743712-7d8e-4c69-899b-ed7226be5e1d" positionType="FixRelativeToBottom" mode="Opaque" x="0" y="30" width="470" height="20" forecolor="#000000" backcolor="#D9D9D9" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[GANANCIA TOTAL]]></text>
+			<box>
+				<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="85996970-61ca-4ffc-9006-72d0ed4dbe1f" positionType="FixRelativeToBottom" mode="Opaque" x="0" y="50" width="470" height="20" forecolor="#000000" backcolor="#D9D9D9" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[INGRESO TOTAL]]></text>
+			<box>
+				<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</summary>
+</jasperReport>

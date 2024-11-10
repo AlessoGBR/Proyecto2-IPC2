@@ -4,15 +4,21 @@
  */
 package Models;
 
-
 /**
  *
  * @author alesso
  */
 public class Etiqueta {
 
-
     private String nombre;
+
+    public Etiqueta(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Etiqueta() {
+
+    }
 
     public String getNombre() {
         return nombre;

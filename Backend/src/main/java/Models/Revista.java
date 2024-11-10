@@ -15,7 +15,7 @@ public class Revista {
     private int idRevista;
     private int likes;
     private String titulo;
-    private String version;
+    private int no_version;
     private String fecha;
     private String revistaPath;
     private String descripcion;
@@ -24,17 +24,19 @@ public class Revista {
     private boolean esPago;
     private boolean tieneComentarios;
     private boolean tieneReacciones;
+    private boolean tieneAnuncios;
     private boolean denegada;
+    private double precio;
     private String usuario;
     private List<Etiqueta> etiquetas;
     private List<String> etiquetasString;
 
-   public Revista(String titulo, String descripcion, String version, String fecha,
+   public Revista(String titulo, String descripcion, int version, String fecha,
                    boolean suscripciones, boolean tieneComentarios,
-                   boolean tieneReacciones, String usuario, List<Etiqueta> etiquetas, boolean aprobado, boolean dengada) {
+                   boolean tieneReacciones, String usuario, List<Etiqueta> etiquetas, boolean aprobado, boolean dengada, double precio) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.version = version;  
+        this.no_version = version;  
         this.fecha = fecha;
         this.suscripciones = suscripciones;
         this.tieneComentarios = tieneComentarios;
@@ -43,6 +45,25 @@ public class Revista {
         this.etiquetas = etiquetas;
         this.aprobado = aprobado;
         this.denegada = dengada;
+        this.precio = precio;
+    }
+   
+   public Revista(String titulo, String descripcion, int version, String fecha,
+                   boolean suscripciones, boolean tieneComentarios,
+                   boolean tieneReacciones, boolean tieneAnuncios, String usuario, List<Etiqueta> etiquetas, boolean aprobado, boolean dengada, double precio) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.no_version = version;  
+        this.fecha = fecha;
+        this.suscripciones = suscripciones;
+        this.tieneComentarios = tieneComentarios;
+        this.tieneReacciones = tieneReacciones;
+        this.tieneAnuncios = tieneAnuncios;
+        this.usuario = usuario;
+        this.etiquetas = etiquetas;
+        this.aprobado = aprobado;
+        this.denegada = dengada;
+        this.precio = precio;
     }
 
     public Revista() {
@@ -73,12 +94,12 @@ public class Revista {
         this.titulo = titulo;
     }
 
-    public String getVersion() {
-        return version;
+    public int getNo_version() {
+        return no_version;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setNo_version(int no_version) {
+        this.no_version = no_version;
     }
 
     public String getFecha() {
@@ -153,6 +174,14 @@ public class Revista {
         this.tieneReacciones = tieneReacciones;
     }
 
+    public boolean isTieneAnuncios() {
+        return tieneAnuncios;
+    }
+
+    public void setTieneAnuncios(boolean tieneAnuncios) {
+        this.tieneAnuncios = tieneAnuncios;
+    }
+
     public boolean isDenegada() {
         return denegada;
     }
@@ -160,6 +189,14 @@ public class Revista {
     public void setDenegada(boolean denegada) {
         this.denegada = denegada;
     }    
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
     
     public List<Etiqueta> getEtiquetas() {
         return etiquetas;

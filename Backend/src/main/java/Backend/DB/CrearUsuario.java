@@ -4,7 +4,6 @@
  */
 package Backend.DB;
 
-import static Backend.DB.ConexionPool.connection;
 import Models.Etiqueta;
 import Models.Usuario;
 import java.io.UnsupportedEncodingException;
@@ -18,8 +17,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -66,13 +63,13 @@ public class CrearUsuario {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, usuario.getUsername());
             ps.setString(2, encriptarPass(usuario.getPassword()));
-            ps.setInt(3, convertirTipoUsuarioEnum(usuario.getUserType())); 
+            ps.setInt(3, convertirTipoUsuarioEnum(usuario.getUserType()));
             username = usuario.getUsername();
             tipo = convertirTipoUsuarioEnum(usuario.getUserType());
             ps.executeUpdate();
-            
+
         }
-        
+
     }
 
     public boolean registrarUsuarioYPerfil(Usuario usuario) {
@@ -82,8 +79,11 @@ public class CrearUsuario {
             if (!existe) {
                 insertarUsuario(connection, usuario);
             }
+            if (tipo == 3) {
+                crearCartera(connection, username);
+            }
             if (tipo == 4) {
-                crearAnunciante(connection,username);
+                crearAnunciante(connection, username);
             }
 
             String sqlPerfil = "INSERT INTO Perfil (fotoPerfil, descripcion, nombre_usuario) VALUES (?, ?, ?)";
@@ -143,7 +143,7 @@ public class CrearUsuario {
             nuevoPass = new String(base64Bytes);
         } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchAlgorithmException
                 | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
         return nuevoPass;
     }
@@ -166,21 +166,41 @@ public class CrearUsuario {
         String sqlInsertRel = "INSERT INTO Perfil_Etiquetas (nombre_etiqueta, idPerfil, nombre_usuario) VALUES (?, ?, ?)";
         try (PreparedStatement psInsertRel = connection.prepareStatement(sqlInsertRel)) {
             for (Etiqueta etiqueta : etiquetas) {
-                psInsertRel.setString(1, etiqueta.getNombre());
-                psInsertRel.setInt(2, idPerfil);
-                psInsertRel.setString(3, nombreUsuario);
-                psInsertRel.addBatch();
+                // Obtén el nombre de la etiqueta
+                String nombreEtiqueta = etiqueta.getNombre();
+                System.out.println(nombreEtiqueta);
+                // Asegúrate de que el nombre de la etiqueta no sea nulo o vacío
+                if (nombreEtiqueta != null && !nombreEtiqueta.isEmpty()) {
+                    psInsertRel.setString(1, nombreEtiqueta);
+                    psInsertRel.setInt(2, idPerfil);
+                    psInsertRel.setString(3, nombreUsuario);
+                    psInsertRel.addBatch();
+                } else {
+                    System.out.println("Etiqueta con nombre vacío o nulo. No se insertará.");
+                }
             }
             psInsertRel.executeBatch();
         }
     }
-    
-    private void crearAnunciante(Connection connection,String username){
-        
+
+    private void crearAnunciante(Connection connection, String username) {
+
         String sql = "INSERT INTO Anunciante (cartera, nombre_usuario) VALUES (?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDouble(1, 0);
             ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("error" + ex);
+        }
+    }
+    
+    private void crearCartera(Connection connection, String username) {
+
+        String sql = "INSERT INTO Cartera (nombre_usuario, cartera) VALUES (?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setDouble(2, 0);            
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("error" + ex);

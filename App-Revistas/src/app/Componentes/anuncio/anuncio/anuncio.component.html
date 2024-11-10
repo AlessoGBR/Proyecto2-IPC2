@@ -1,0 +1,27 @@
+<div class="container-sm border rounded-3 my-2" style="max-height: 225px">
+  <div *ngIf="anuncio" class="row text-center">
+    <iframe
+      *ngIf="anuncio.tipo === 'VIDEO'"
+      width="460"
+      height="200"
+      [src]="urlVideo"
+      title="Anuncio"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    >
+    </iframe>
+
+    <div
+      *ngIf="anuncio.tipo === 'IMAGEN Y TEXTO'"
+      class="container"
+      style="max-height: 190px"
+    >
+      <app-ver-imagen [path]="anuncio.pathImagen"></app-ver-imagen>
+    </div>
+  </div>
+
+  <div *ngIf="anuncio" class="row">
+    <marquee>{{ anuncio.texto }}</marquee>
+  </div>
+</div>

@@ -4,11 +4,13 @@ import { RouterOutlet } from '@angular/router';
 import { CrearAnuncioComponent } from 'app/Componentes/CompAnunciante/crearAnuncio/crear-anuncio/crear-anuncio.component';
 import { CommonModule } from '@angular/common';
 import { VerAnunciosComponent } from "../../../CompAnunciante/verAnuncios/ver-anuncios/ver-anuncios.component";
+import { CarteraComponent } from 'app/Componentes/CompAnunciante/cartera/cartera/cartera.component';
+import { CerrarSesionComponent } from "../../cerrar-session/cerrar-sesion/cerrar-sesion.component";
 
 @Component({
   selector: 'app-menu-anunciante',
   standalone: true,
-  imports: [RouterOutlet, CrearAnuncioComponent, CommonModule, VerAnunciosComponent],
+  imports: [RouterOutlet, CrearAnuncioComponent, CommonModule, VerAnunciosComponent, CarteraComponent, CerrarSesionComponent],
   templateUrl: './menu-anunciante.component.html',
   styleUrl: './menu-anunciante.component.css'
 })

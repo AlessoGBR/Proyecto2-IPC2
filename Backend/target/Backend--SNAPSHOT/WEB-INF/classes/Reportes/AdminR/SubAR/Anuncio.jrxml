@@ -1,0 +1,83 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Anuncio" language="java" pageWidth="560" pageHeight="842" columnWidth="560" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d6da311a-baf6-48da-850b-6dbb5d6777c0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NuevoAdaptador"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="idAnuncio" class="java.lang.Integer">
+		<description><![CDATA[idAnuncio]]></description>
+	</field>
+	<field name="tipoAnuncio" class="java.lang.String">
+		<description><![CDATA[tipo]]></description>
+	</field>
+	<field name="fecha_inicio" class="java.sql.Date">
+		<description><![CDATA[fechaInicio]]></description>
+	</field>
+	<field name="fecha_final" class="java.sql.Date">
+		<description><![CDATA[fechaFinal]]></description>
+	</field>
+	<field name="pago" class="java.lang.Double">
+		<description><![CDATA[pago]]></description>
+	</field>
+	<variable name="pago" calculation="Sum" class="java.lang.Double">
+		<expression><![CDATA[$F{pago}]]></expression>
+	</variable>
+	<columnHeader height="21" splitType="Stretch">
+		<element kind="staticText" uuid="a1d6a9e1-9a35-47b3-b8e6-75b73b62779c" mode="Opaque" x="0" y="0" width="40" height="21" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ID]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4f95e116-563a-47c4-a62a-79f9ace218f8"/>
+		</element>
+		<element kind="staticText" uuid="43492dc3-a6d4-4569-9bd0-b435a6768e35" mode="Opaque" x="40" y="0" width="184" height="21" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[TIPO DE ANUNCIO]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4c0b580c-4460-4a95-a570-e8916d26983b"/>
+		</element>
+		<element kind="staticText" uuid="75b1f0bb-8532-43d9-a626-88600b712c72" mode="Opaque" x="224" y="0" width="112" height="21" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[INICIO]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79c6814d-9e92-4578-a1fa-03b1a2e56487"/>
+		</element>
+		<element kind="staticText" uuid="d1657684-08f4-4d84-9dbd-4eed8beb33f8" mode="Opaque" x="336" y="0" width="112" height="21" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[FINAL]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="380d726c-8f3d-4e1a-a137-13a06c278065"/>
+		</element>
+		<element kind="staticText" uuid="3160fe21-ca6e-414d-9f47-eeb1ecf65128" mode="Opaque" x="448" y="0" width="112" height="21" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[PAGO]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ee6bccc-f9e9-402f-a32e-0061e044ad0f"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<element kind="textField" uuid="ba144297-0e8c-48d5-85ce-ff5348b89d0d" x="0" y="0" width="40" height="21" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{idAnuncio}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4f95e116-563a-47c4-a62a-79f9ace218f8"/>
+			</element>
+			<element kind="textField" uuid="99dc442f-aecf-4f3a-a51d-f67f9648dcff" x="40" y="0" width="184" height="21" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{tipoAnuncio}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4c0b580c-4460-4a95-a570-e8916d26983b"/>
+			</element>
+			<element kind="textField" uuid="f497f8a0-0dad-4db1-990c-ee7da8b219df" x="224" y="0" width="112" height="21" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{fecha_inicio}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79c6814d-9e92-4578-a1fa-03b1a2e56487"/>
+			</element>
+			<element kind="textField" uuid="8862b838-a196-4383-af7d-9a03986f2274" x="336" y="0" width="112" height="21" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{fecha_final}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="380d726c-8f3d-4e1a-a137-13a06c278065"/>
+			</element>
+			<element kind="textField" uuid="eee70dd3-f670-4291-b94d-d29ec7f44d01" x="448" y="0" width="112" height="21" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{pago}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ee6bccc-f9e9-402f-a32e-0061e044ad0f"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="20" splitType="Stretch">
+		<element kind="staticText" uuid="413b3a7f-8319-48aa-8513-e74534bb79e5" mode="Opaque" x="0" y="0" width="448" height="20" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[TOTAL INGRESO]]></text>
+			<box>
+				<pen lineWidth="0.25" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="b2d6b226-d720-4752-bbf0-9693a3540046" mode="Opaque" x="448" y="0" width="112" height="20" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$V{pago}]]></expression>
+			<box>
+				<pen lineWidth="0.25" lineColor="#000000"/>
+			</box>
+		</element>
+	</columnFooter>
+</jasperReport>

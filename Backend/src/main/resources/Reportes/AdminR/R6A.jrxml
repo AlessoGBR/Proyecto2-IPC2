@@ -1,0 +1,59 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="R6A" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8724d76a-ee71-4561-9937-cb34f6966b75">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="RevistaNoList"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="anunciante.username" class="java.lang.String">
+		<description><![CDATA[anunciante.username]]></description>
+	</field>
+	<field name="anuncios" class="java.util.List">
+		<description><![CDATA[anuncios]]></description>
+	</field>
+	<title height="72">
+		<element kind="frame" uuid="d32c9494-89d7-4d7d-9af6-7e4880244209" mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699">
+			<element kind="staticText" uuid="96b37d8c-30fd-4a42-82ca-5ea00f727f5e" x="0" y="20" width="595" height="43" forecolor="#FFFFFF" fontSize="30.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Reporte de Anuncios Comprados]]></text>
+			</element>
+		</element>
+	</title>
+	<detail>
+		<band height="126">
+			<element kind="textField" uuid="57cea8f3-a038-4a97-b01a-901ce251fb06" mode="Opaque" x="0" y="10" width="560" height="20" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{anunciante.username}]]></expression>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="82aaf8d6-c185-43c9-87a9-57125fa017ff" mode="Opaque" x="0" y="30" width="280" height="20" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[ID]]></text>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="34290659-845c-421e-ae98-01e71398d298" mode="Opaque" x="280" y="30" width="280" height="20" forecolor="#FFFFFF" backcolor="#006699" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[TIPO DE ANUNCIO]]></text>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="subreport" uuid="c54a5d13-bcb8-431e-acf0-4b0ac1c66b60" x="0" y="50" width="560" height="30">
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{anuncios})]]></dataSourceExpression>
+				<expression><![CDATA["/Reportes/AdminR/SubAR/AnuncioSubrePort.jasper"]]></expression>
+				<parameter name="visualizaciones">
+					<expression><![CDATA[$F{anuncios}]]></expression>
+				</parameter>
+			</element>
+		</band>
+	</detail>
+	<columnFooter/>
+	<pageFooter height="17">
+		<element kind="textField" uuid="64b1717f-1fee-431e-9675-185d1ca114ba" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" hTextAlign="Right">
+			<expression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></expression>
+		</element>
+		<element kind="textField" uuid="6226cc0c-7558-47dc-8736-6a2c106cb82e" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" evaluationTime="Report">
+			<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="3219852b-5c95-4dfa-95a9-573c23373b1f" x="0" y="4" width="100" height="13" pattern="EEEEE dd MMMMM yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>

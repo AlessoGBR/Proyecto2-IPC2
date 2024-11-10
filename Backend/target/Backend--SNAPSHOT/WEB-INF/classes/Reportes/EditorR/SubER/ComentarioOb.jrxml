@@ -1,0 +1,33 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="ComentarioOb" language="java" pageWidth="560" pageHeight="842" columnWidth="560" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="41e99f26-f9fc-4ee5-83f6-31269c447997">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="idComentario" class="java.lang.Integer">
+		<description><![CDATA[idComentario]]></description>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<description><![CDATA[fecha]]></description>
+	</field>
+	<field name="comentario" class="java.lang.String">
+		<description><![CDATA[comentario]]></description>
+	</field>
+	<field name="nombreUsuario" class="java.lang.String">
+		<description><![CDATA[nombreUsuario]]></description>
+	</field>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="textField" uuid="8237717b-57ee-4952-ab0c-76a99d7b87cc" x="0" y="0" width="40" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{idComentario}]]></expression>
+			</element>
+			<element kind="textField" uuid="6ba33552-6a40-47d6-89d0-6b9073e2d75c" x="40" y="0" width="90" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{fecha}]]></expression>
+			</element>
+			<element kind="textField" uuid="22b3810c-0266-4528-99e8-9a45950c3771" x="130" y="0" width="300" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{comentario}]]></expression>
+			</element>
+			<element kind="textField" uuid="0dde08b3-84d4-45d6-aca0-7e2a79fb45ca" x="430" y="0" width="130" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{nombreUsuario}]]></expression>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

@@ -4,7 +4,7 @@
       <a class="navbar-brand"></a>
       <a class="navbar-brand" href="InicioLector">
         <img
-          src="http://voxpopulii.in/system/static/dashboard/img/default_user.png"
+          src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
           alt="Avatar Logo"
           style="width: 35px"
           class="rounded-pill"
@@ -14,25 +14,29 @@
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="InicioLector">Inicio</a>
+            <a class="nav-link">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href=""> Perfil </a>
+            <a class="nav-link" (click)="tooglePerfil()"> Perfil </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="toggleSuscripcion()"
-              >Suscripciones</a
-            >
+            <a class="nav-link" (click)="toggleSuscripcion()">Suscripciones</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" (click)="toggleRevista()">Revistas</a>
           </li>
         </ul>
       </div>
+      <app-cerrar-sesion></app-cerrar-sesion>
     </nav>
   </div>
+  
 </header>
 <router-outlet></router-outlet>
+<app-anuncio></app-anuncio>
+<div *ngIf="perfil">
+  <app-ver-perfil></app-ver-perfil>
+</div>
 <div *ngIf="revistas">
   <app-buscar></app-buscar>
 </div>

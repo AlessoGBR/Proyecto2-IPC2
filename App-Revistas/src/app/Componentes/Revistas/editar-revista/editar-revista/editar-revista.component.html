@@ -1,0 +1,120 @@
+<div class="container">
+  <form [formGroup]="validarForm" class="needs-validation was-validated" novalidate>
+    <div class="row">
+      <div class="col-12 col-lg- border rounded shadow-sm">
+        <h2 class="text-center mb-4">Datos de Revista</h2>
+
+        <div class="mb-3">
+          <label for="titulo" class="form-label">Título</label>
+          <input
+            type="text"
+            class="form-control"
+            id="titulo"
+            placeholder="Título"
+            maxlength="50"
+            minlength="5"
+            formControlName="titulo"
+            required
+          />
+          <div class="invalid-feedback">
+            El título es obligatorio y debe tener entre 5 y 50 caracteres.
+          </div>
+        </div>
+
+        <!-- Campo de Versión -->
+        <div class="mb-3">
+          <label for="version" class="form-label">Versión</label>
+          <input
+            type="number"
+            class="form-control"
+            id="version"
+            placeholder="Versión"
+            min="1"
+            step="1"
+            formControlName="version"
+            required
+          />
+          <div class="invalid-feedback">
+            La versión es obligatoria y debe ser un número entero positivo.
+          </div>
+        </div>
+
+        <!-- Campo de Fecha de Publicación -->
+        <div class="mb-3">
+          <label for="fecha" class="form-label">Fecha de Publicación</label>
+          <input
+            type="date"
+            class="form-control"
+            id="fecha"
+            formControlName="fecha"
+            required
+          />
+          <div class="invalid-feedback">La fecha es obligatoria.</div>
+        </div>
+
+        <!-- Campo de Descripción -->
+        <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <textarea
+            class="form-control"
+            id="descripcion"
+            placeholder="Descripción de la revista"
+            minlength="20"
+            maxlength="150"
+            formControlName="descripcion"
+            rows="3"
+            required
+          ></textarea>
+          <div class="invalid-feedback">
+            La descripción es obligatoria y debe tener entre 20 y 150 caracteres.
+          </div>
+        </div>
+
+        <!-- Opciones de Suscripción y Configuración -->
+        <div class="my-4">
+          <h5 class="text-center">Configuraciones de Publicación</h5>
+
+          <!-- Suscripciones -->
+          <div class="form-check form-switch mb-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="suscripciones"
+              formControlName="suscripciones"
+              checked
+            />
+            <label class="form-check-label" for="suscripciones">
+              ¿Permitir Suscripciones?
+            </label>
+          </div>
+
+          <!-- Permite Comentarios -->
+          <div class="form-check form-switch mb-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="tiene_comentarios"
+              formControlName="tiene_comentarios"
+            />
+            <label class="form-check-label" for="tiene_comentarios">
+              Permitir Comentarios
+            </label>
+          </div>
+
+          <!-- Permite Me gusta -->
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="tiene_reaccion"
+              formControlName="tiene_reaccion"
+            />
+            <label class="form-check-label" for="tiene_reaccion">
+              Permitir Me gusta
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

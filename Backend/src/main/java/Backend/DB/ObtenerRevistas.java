@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -40,7 +38,7 @@ public class ObtenerRevistas {
                     revista.setIdRevista(rs.getInt("idRevista"));
                     revista.setTitulo(rs.getString("titulo"));
                     revista.setDescripcion(rs.getString("descripcion"));
-                    revista.setVersion(rs.getString("no_version"));
+                    revista.setNo_version(rs.getInt("no_version"));
                     revista.setAprobada(rs.getBoolean("aprobada"));
                     revista.setTieneComentarios(rs.getBoolean("comentarios"));
                     revista.setTieneReacciones(rs.getBoolean("reacciones"));
@@ -69,7 +67,7 @@ public class ObtenerRevistas {
                     revista.setrevistaPath(rs.getString("revista"));
                     revista.setTitulo(rs.getString("titulo"));
                     revista.setDescripcion(rs.getString("descripcion"));
-                    revista.setVersion(rs.getString("no_version"));
+                    revista.setNo_version(rs.getInt("no_version"));
                     revista.setFecha(rs.getString("fecha"));
                     revistasAprobadas.add(revista);
                 }
@@ -111,7 +109,7 @@ public class ObtenerRevistas {
                     revista.setrevistaPath(rs.getString("revista"));
                     revista.setTitulo(rs.getString("titulo"));
                     revista.setDescripcion(rs.getString("descripcion"));
-                    revista.setVersion(rs.getString("no_version"));
+                    revista.setNo_version(rs.getInt("no_version"));
                     revistas.add(revista);
                 }
             }
@@ -126,7 +124,7 @@ public class ObtenerRevistas {
 
         return revistas;
     }
-    
+
     public List<Revista> obtenerRevistasPendientes() {
         List<Revista> revistasAprobadas = new ArrayList<>();
         String query = "SELECT * FROM Revista WHERE aprobada = false AND denegada = false";
@@ -139,7 +137,7 @@ public class ObtenerRevistas {
                     revista.setIdRevista(rs.getInt("idRevista"));
                     revista.setTitulo(rs.getString("titulo"));
                     revista.setDescripcion(rs.getString("descripcion"));
-                    revista.setVersion(rs.getString("no_version"));
+                    revista.setNo_version(rs.getInt("no_version"));
                     revista.setAprobada(rs.getBoolean("aprobada"));
                     revista.setusuario(rs.getString("nombre_usuario"));
                     revista.setTieneComentarios(rs.getBoolean("comentarios"));
@@ -155,7 +153,7 @@ public class ObtenerRevistas {
 
         return revistasAprobadas;
     }
-    
+
     public List<Revista> obtenerRevistasAprobada() {
         List<Revista> revistasAprobadas = new ArrayList<>();
         String query = "SELECT * FROM Revista WHERE aprobada = true AND denegada = false";
@@ -168,7 +166,7 @@ public class ObtenerRevistas {
                     revista.setIdRevista(rs.getInt("idRevista"));
                     revista.setTitulo(rs.getString("titulo"));
                     revista.setDescripcion(rs.getString("descripcion"));
-                    revista.setVersion(rs.getString("no_version"));
+                    revista.setNo_version(rs.getInt("no_version"));
                     revista.setAprobada(rs.getBoolean("aprobada"));
                     revista.setusuario(rs.getString("nombre_usuario"));
                     revista.setTieneComentarios(rs.getBoolean("comentarios"));
@@ -185,6 +183,35 @@ public class ObtenerRevistas {
         return revistasAprobadas;
     }
     
+     public List<Revista> obtenerRevistasDenegadas() {
+        List<Revista> revistasAprobadas = new ArrayList<>();
+        String query = "SELECT * FROM Revista WHERE denegada = true";
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Revista revista = new Revista();
+                    revista.setIdRevista(rs.getInt("idRevista"));
+                    revista.setTitulo(rs.getString("titulo"));
+                    revista.setDescripcion(rs.getString("descripcion"));
+                    revista.setNo_version(rs.getInt("no_version"));
+                    revista.setAprobada(rs.getBoolean("aprobada"));
+                    revista.setusuario(rs.getString("nombre_usuario"));
+                    revista.setTieneComentarios(rs.getBoolean("comentarios"));
+                    revista.setTieneReacciones(rs.getBoolean("reacciones"));
+                    revista.setSuscripciones(rs.getBoolean("suscripciones"));
+                    revista.setDenegada(rs.getBoolean("denegada"));
+                    revistasAprobadas.add(revista);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar las revistas aprobadas: " + e.getMessage());
+        }
+
+        return revistasAprobadas;
+    }
+
     public List<Revista> obtenerRevistasSuscritas(String username) {
         List<Revista> revistasSuscritas = new ArrayList<>();
         String query = "SELECT r.* FROM Revista r "
@@ -199,12 +226,13 @@ public class ObtenerRevistas {
                     revista.setIdRevista(rs.getInt("idRevista"));
                     revista.setTitulo(rs.getString("titulo"));
                     revista.setDescripcion(rs.getString("descripcion"));
-                    revista.setVersion(rs.getString("no_version"));
+                    revista.setNo_version(rs.getInt("no_version"));
                     revista.setAprobada(rs.getBoolean("aprobada"));
                     revista.setusuario(rs.getString("nombre_usuario"));
                     revista.setTieneComentarios(rs.getBoolean("comentarios"));
                     revista.setTieneReacciones(rs.getBoolean("reacciones"));
-                    revista.setSuscripciones(rs.getBoolean("suscripciones"));
+                    revista.setTieneAnuncios(rs.getBoolean("anuncios"));
+                    revista.setSuscripciones(rs.getBoolean("suscripciones"));                    
 
                     revistasSuscritas.add(revista);
                 }
@@ -216,6 +244,41 @@ public class ObtenerRevistas {
         }
 
         return revistasSuscritas;
+    }
+
+    public Revista obtenerRevista(int idRevista) {
+        Revista revista = null; 
+        String query = "SELECT idRevista, revista, titulo, descripcion, no_version, comentarios, reacciones, suscripciones, nombre_usuario, fecha, anuncios FROM Revista WHERE idRevista = ?";
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, idRevista);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) { 
+                    revista = new Revista();
+                    revista.setIdRevista(rs.getInt("idRevista"));
+                    revista.setrevistaPath(rs.getString("revista"));
+                    revista.setTitulo(rs.getString("titulo"));
+                    revista.setDescripcion(rs.getString("descripcion"));
+                    revista.setNo_version(rs.getInt("no_version"));
+                    revista.setTieneComentarios(rs.getBoolean("comentarios"));
+                    revista.setTieneReacciones(rs.getBoolean("reacciones"));
+                    revista.setSuscripciones(rs.getBoolean("suscripciones"));                    
+                    revista.setFecha(rs.getString("fecha"));
+                    revista.setusuario(rs.getString("nombre_usuario"));
+                    revista.setTieneAnuncios(rs.getBoolean("anuncios"));
+                } else {
+                    System.out.println("No se encontró la revista con ID: " + idRevista);
+                }
+            }
+        } catch (SQLException e) {
+            
+            System.out.println("Error al obtener la revista: " + e.getMessage());
+            e.printStackTrace(); 
+        }
+
+        return revista;
     }
 
 }

@@ -3,14 +3,14 @@ import { Comentario } from 'app/Objetos/Comentario';
 import { Reaccion } from 'app/Objetos/Reaccion';
 import { ReaccionService } from 'app/Servicios/Revistas/reaccion-service/reaccion-service.service';
 import { ComentarioService } from 'app/Servicios/Revistas/comentario-service/comentario-service.service';
-import { AlmacenamientoService } from 'app/Servicios/Revistas/almacenamiento-service/almacenamiento-service.service';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tarjeta-revista',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './tarjeta-revista.component.html',
   styleUrl: './tarjeta-revista.component.css'
 })
@@ -22,17 +22,25 @@ export class TarjetaRevistaComponent implements OnInit {
   reacciones: Reaccion[] = [];
   comentarios: Comentario[] = [];
   username: String| null = null;
+  idRevista: string | null = null;
 
   constructor(
     private obtenerReaccion: ReaccionService,
     private obtenerComentario: ComentarioService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    if (this.revista?.idRevista != null) {
-      this.obtenerReacciones();
-      this.obtenerComentarios();
-    }
+    this.idRevista = this.route.snapshot.paramMap.get('idRevista');
+
+    this.route.paramMap.subscribe((params: { get: (arg0: string) => string | null; }) => {
+      this.idRevista = params.get('idRevista');
+      if (this.revista?.idRevista != null) {
+        this.obtenerReacciones();
+        this.obtenerComentarios();
+      }
+    });
+    
   }
 
   obtenerReacciones(): void {

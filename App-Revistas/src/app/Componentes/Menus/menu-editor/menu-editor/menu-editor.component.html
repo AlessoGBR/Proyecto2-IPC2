@@ -1,46 +1,61 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <a class="navbar-brand" href="InicioEditor">
-      <img
-          src="http://voxpopulii.in/system/static/dashboard/img/default_user.png"
-          alt="Avatar Logo"
-          style="width: 35px"
-          class="rounded-pill"
-      />
+    <img
+      src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+      alt="Avatar Logo"
+      style="width: 35px"
+      class="rounded-pill"
+    />
   </a>
   <div class="collapse navbar-collapse" id="navbarsExample04">
-      <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-              <a class="nav-link" href="InicioEditor">Inicio</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="InicioEditor/Perfil" aria-label="Ir a mi perfil">Perfil</a>
-          </li> 
-          <li class="nav-item">                                
-            <a class="nav-link" (click)="toggleRevistasCreadas()" aria-label="Ir a crear revista">
-                Revistas Creadas
-            </a> 
-            </li>       
-          <li class="nav-item">                                
-            <a class="nav-link" (click)="togglePublicarRevista()" aria-label="Ir a crear revista">
-                Crear revista
-            </a> 
-            </li>     
-            <li class="nav-item">                    
-                <a class="nav-link" href="InicioEditor" aria-label="Ir a crear revista">
-                    Cartera
-                </a>   
-            </li>       
-          <li class="nav-item">
-              <a class="nav-link" href="InicioEditor/SolicitarReporte">Reportes</a>
-          </li>
-      </ul>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="InicioEditor">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          (click)="toggleRevistasCreadas()"
+          aria-label="Ir a crear revista"
+        >
+          Revistas Creadas
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          (click)="togglePublicarRevista()"
+          aria-label="Ir a crear revista"
+        >
+          Crear revista
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          aria-label="Ir a crear revista"
+          (click)="toggleCartera()"
+        >
+          Cartera
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="toggleReporte()">Reportes</a>
+      </li>
+    </ul>
   </div>
+  <app-cerrar-sesion></app-cerrar-sesion>
 </nav>
 <router-outlet></router-outlet>
 <div *ngIf="mostrarRevistas">
-    <app-publicaciones></app-publicaciones>
+  <app-publicaciones></app-publicaciones>
 </div>
 <div *ngIf="mostrarPublicarRevista">
-    <app-publicar-revista></app-publicar-revista>
+  <app-publicar-revista></app-publicar-revista>
 </div>
-
+<div *ngIf="cartera">
+  <app-cartera-editor></app-cartera-editor>
+</div>
+<div *ngIf="reporte">
+  <app-reporte-editor></app-reporte-editor>
+</div>
