@@ -50,7 +50,6 @@ public class RegistroServicio {
             System.out.println(etiquetas);
         }
 
-        // Validación de campos
         if (username == null || password == null || userType == null || etiquetasJson == null) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(new Respuesta("Error en el registro: datos incompletos"))
@@ -88,7 +87,6 @@ public class RegistroServicio {
     }
 
     private String extraerNombre(String json) {
-        // Remover los caracteres de inicio y fin
         json = json.trim();
         if (json.startsWith("{") && json.endsWith("}")) {
             json = json.substring(1, json.length() - 1);
@@ -101,7 +99,7 @@ public class RegistroServicio {
                 }
             }
         }
-        return null; // Retornar null si no se encuentra el nombre
+        return null;
     }
 
 }

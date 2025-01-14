@@ -12,10 +12,22 @@
 	<columnHeader height="8" splitType="Stretch">
 		<element kind="textField" uuid="6f0db1ef-5f2a-4324-9c04-4a6b7941b142" x="0" y="-12" width="280" height="20" hTextAlign="Center" vTextAlign="Middle">
 			<expression><![CDATA[$F{idAnuncio}]]></expression>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
 		</element>
 		<element kind="textField" uuid="4be369c3-20ed-41ca-a2b2-2683b26e11af" x="280" y="-12" width="280" height="20" hTextAlign="Center" vTextAlign="Middle">
-			<expression><![CDATA[$F{tipo}.equals("TEXTO") ? "TEXTO" : ($F{tipo}.equals("IMAGEN CON TEXTO") ? "IMAGEN CON TEXTO" : "VIDEO")
+			<expression><![CDATA[$F{tipo}
 ]]></expression>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
 		</element>
 	</columnHeader>
 	<columnFooter splitType="Stretch"/>

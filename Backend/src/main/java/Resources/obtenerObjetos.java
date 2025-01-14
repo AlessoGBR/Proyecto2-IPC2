@@ -251,20 +251,18 @@ public class obtenerObjetos {
     }
 
     private String extraerNombre(String json) {
-        // Remover los caracteres de inicio y fin
         json = json.trim();
         if (json.startsWith("{") && json.endsWith("}")) {
             json = json.substring(1, json.length() - 1);
             String[] partes = json.split(":");
             if (partes.length == 2) {
                 String nombre = partes[1].trim();
-                // Remover comillas
                 if (nombre.startsWith("\"") && nombre.endsWith("\"")) {
                     return nombre.substring(1, nombre.length() - 1);
                 }
             }
         }
-        return null; // Retornar null si no se encuentra el nombre
+        return null; 
     }
 
     @GET

@@ -20,6 +20,7 @@ Backend/DB/ActualizarRevista.class
 Backend/DB/CrearUsuario.class
 Backend/DB/CrearSuscripcion.class
 Resources/Archivo.class
+Backend/IngresoAnuncio.class
 ObtenerObjetos/ObEditor.class
 Backend/JakartaRestConfiguration.class
 Models/RevistaReport.class

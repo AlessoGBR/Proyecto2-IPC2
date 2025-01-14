@@ -21,14 +21,14 @@ public class CrearRevista {
 
     private ConexionPool dataSource = ConexionPool.getInstance();
 
-    private  Revista revista;
+    private Revista revista;
 
     public CrearRevista(Revista revista) {
         this.revista = revista;
     }
-    
-    public CrearRevista(){
-    
+
+    public CrearRevista() {
+
     }
 
     public boolean crearRevista() {
@@ -41,12 +41,12 @@ public class CrearRevista {
 
     }
 
-    public boolean insertarRevista(){
+    public boolean insertarRevista() {
 
         String insertSQL = "INSERT INTO Revista (revista ,titulo, descripcion, no_version, aprobada, suscripciones, comentarios, reacciones, fecha, nombre_usuario, denegada, precio, anuncios) "
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        Connection connection = null;        
+        Connection connection = null;
         try {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
@@ -59,7 +59,7 @@ public class CrearRevista {
                 stmt.setString(2, revista.getTitulo());
                 stmt.setString(3, revista.getDescripcion());
                 stmt.setInt(4, revista.getNo_version());
-                stmt.setBoolean(5, false);  // No aprobada inicialmente
+                stmt.setBoolean(5, false);
                 stmt.setBoolean(6, revista.isSuscripciones());
                 stmt.setBoolean(7, revista.isTieneComentarios());
                 stmt.setBoolean(8, revista.isTieneReacciones());
@@ -104,7 +104,7 @@ public class CrearRevista {
                     try {
                         throw new SQLException("Error al cerrar la conexión: " + e.getMessage(), e);
                     } catch (SQLException ex) {
-                        System.out.println("ingeso no connection"+ ex.getMessage());
+                        System.out.println("ingeso no connection" + ex.getMessage());
                     }
                 }
             }
@@ -113,7 +113,7 @@ public class CrearRevista {
     }
 
     public void ingresarEtiquetas(Connection connection, int idRevista, List<Etiqueta> etiquetas) throws SQLException {
-        String sqlInsertRel = "INSERT INTO Etiqueta_Revista (nombre_etiqueta,idRevista) VALUES (?, ?)";
+        String sqlInsertRel = "INSERT INTO Etiqueta_Revista (nombre_etiqueta, idRevista) VALUES (?, ?)";
 
         try (PreparedStatement psInsertRel = connection.prepareStatement(sqlInsertRel)) {
             for (Etiqueta etiqueta : etiquetas) {
@@ -155,23 +155,31 @@ public class CrearRevista {
         }
         return 0;
     }
-    
+
     public boolean ingresoCarteraEditor(String nombre, int montoTotal) {
         String sql = "UPDATE Cartera SET cartera = ? WHERE nombre_usuario = ?";
-        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = dataSource.getConnection()) {
+            connection.setAutoCommit(false);
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setInt(1, montoTotal);
+                stmt.setString(2, nombre);
 
-            stmt.setInt(1, montoTotal); 
-            stmt.setString(2, nombre); 
-
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows > 0) {
-                return true;
-            } else {
+                int affectedRows = stmt.executeUpdate();
+                if (affectedRows > 0) {
+                    connection.commit();
+                    return true;
+                } else {
+                    connection.rollback();
+                    return false;
+                }
+            } catch (SQLException e) {
+                connection.rollback();
+                e.printStackTrace();
                 return false;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error de conexión al actualizar cartera del editor: " + e);
+            return false;
         }
-        return false;
     }
 }

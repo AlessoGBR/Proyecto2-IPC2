@@ -26,6 +26,8 @@ public class ActualizarRevista {
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
 
+            connection.setAutoCommit(false);
+
             stmt.setBoolean(1, comentariosActivos);
             stmt.setInt(2, idRevista);
 
@@ -33,8 +35,15 @@ public class ActualizarRevista {
             if (rowsAffected > 0) {
                 actualizado = true;
             }
+
+            connection.commit(); 
         } catch (SQLException e) {
             e.printStackTrace();
+            try (Connection connection = dataSource.getConnection()) {
+                connection.rollback(); 
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
         }
 
         return actualizado;
@@ -46,6 +55,8 @@ public class ActualizarRevista {
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
 
+            connection.setAutoCommit(false);
+
             stmt.setBoolean(1, megustaActivos);
             stmt.setInt(2, idRevista);
 
@@ -53,8 +64,15 @@ public class ActualizarRevista {
             if (rowsAffected > 0) {
                 actualizado = true;
             }
+
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try (Connection connection = dataSource.getConnection()) {
+                connection.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
         }
 
         return actualizado;
@@ -66,6 +84,8 @@ public class ActualizarRevista {
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
 
+            connection.setAutoCommit(false);
+
             stmt.setBoolean(1, suscripcionesActivados);
             stmt.setInt(2, idRevista);
 
@@ -73,8 +93,15 @@ public class ActualizarRevista {
             if (rowsAffected > 0) {
                 actualizado = true;
             }
+
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try (Connection connection = dataSource.getConnection()) {
+                connection.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
         }
 
         return actualizado;
@@ -86,13 +113,24 @@ public class ActualizarRevista {
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
 
+            connection.setAutoCommit(false);
+
             stmt.setDouble(1, precio);
             stmt.setInt(2, idRevista);
 
             int rowsAffected = stmt.executeUpdate();
-            actualizado = rowsAffected > 0;
+            if (rowsAffected > 0) {
+                actualizado = true;
+            }
+
+            connection.commit();
         } catch (SQLException e) {
             System.out.println("Error al actualizar la revista con ID " + idRevista + ": " + e.getMessage());
+            try (Connection connection = dataSource.getConnection()) {
+                connection.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
         }
 
         return actualizado;
@@ -104,13 +142,24 @@ public class ActualizarRevista {
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
 
+            connection.setAutoCommit(false);
+
             stmt.setDouble(1, precio);
             stmt.setInt(2, idRevista);
-            int rowsAffected = stmt.executeUpdate();
 
-            actualizado = rowsAffected > 0;
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                actualizado = true;
+            }
+
+            connection.commit();
         } catch (SQLException e) {
             System.err.println("Error al actualizar la revista con ID " + idRevista + ": " + e.getMessage());
+            try (Connection connection = dataSource.getConnection()) {
+                connection.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
         }
 
         return actualizado;

@@ -4,7 +4,6 @@
  */
 package Resources;
 
-import Reportes.GeneraraRE;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -42,7 +41,7 @@ public class Archivo {
             return Response.status(Response.Status.BAD_REQUEST).entity("Parámetro opcionReporte es requerido").build();
         }
         try {
-            File imageFile = new File(path); // Ruta del archivo de imagen
+            File imageFile = new File(path); 
 
             if (!imageFile.exists()) {
                 return Response.status(Response.Status.NOT_FOUND)
@@ -50,9 +49,8 @@ public class Archivo {
                         .build();
             }
 
-            // Leer el archivo de imagen y enviarlo como respuesta
             byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-            return Response.ok(imageBytes).build(); // Retornar la imagen en la respuesta
+            return Response.ok(imageBytes).build(); 
 
         } catch (IOException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

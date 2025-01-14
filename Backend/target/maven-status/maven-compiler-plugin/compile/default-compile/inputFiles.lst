@@ -13,6 +13,7 @@
 /home/alesso/NetBeansProjects/Proyecto2-IPC2/Backend/src/main/java/Backend/DB/ObtenerRevistas.java
 /home/alesso/NetBeansProjects/Proyecto2-IPC2/Backend/src/main/java/Backend/GuardarArchivo.java
 /home/alesso/NetBeansProjects/Proyecto2-IPC2/Backend/src/main/java/Backend/GuardarImagen.java
+/home/alesso/NetBeansProjects/Proyecto2-IPC2/Backend/src/main/java/Backend/IngresoAnuncio.java
 /home/alesso/NetBeansProjects/Proyecto2-IPC2/Backend/src/main/java/Backend/JakartaRestConfiguration.java
 /home/alesso/NetBeansProjects/Proyecto2-IPC2/Backend/src/main/java/Backend/Respuesta.java
 /home/alesso/NetBeansProjects/Proyecto2-IPC2/Backend/src/main/java/Filters/ConfiguracionCors.java

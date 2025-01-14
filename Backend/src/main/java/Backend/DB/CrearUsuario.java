@@ -100,7 +100,7 @@ public class CrearUsuario {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Manejar la excepción (por ejemplo, loguear)
+            e.printStackTrace(); 
             try {
                 if (dataSource.getConnection() != null) {
                     dataSource.getConnection().rollback();
@@ -166,10 +166,8 @@ public class CrearUsuario {
         String sqlInsertRel = "INSERT INTO Perfil_Etiquetas (nombre_etiqueta, idPerfil, nombre_usuario) VALUES (?, ?, ?)";
         try (PreparedStatement psInsertRel = connection.prepareStatement(sqlInsertRel)) {
             for (Etiqueta etiqueta : etiquetas) {
-                // Obtén el nombre de la etiqueta
                 String nombreEtiqueta = etiqueta.getNombre();
                 System.out.println(nombreEtiqueta);
-                // Asegúrate de que el nombre de la etiqueta no sea nulo o vacío
                 if (nombreEtiqueta != null && !nombreEtiqueta.isEmpty()) {
                     psInsertRel.setString(1, nombreEtiqueta);
                     psInsertRel.setInt(2, idPerfil);

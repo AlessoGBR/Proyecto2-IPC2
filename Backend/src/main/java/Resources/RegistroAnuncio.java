@@ -6,6 +6,7 @@ package Resources;
 
 import Backend.DB.CrearAnuncio;
 import Backend.GuardarImagen;
+import Backend.IngresoAnuncio;
 import Backend.Respuesta;
 import Models.Anuncio;
 import Models.Cartera;
@@ -47,6 +48,8 @@ public class RegistroAnuncio {
         anuncioDTO.setNombreAnunciante(nombreAnunciante);
         anuncioDTO.setTipo(tipo);
         anuncioDTO.setDiasDuracion(diasDuracion);
+        anuncioDTO.setTexto(texto);
+        anuncioDTO.setUrlVideo(urlVideo);
 
         try {
             anuncioDTO.setFechaInicio(Date.valueOf(fechaInicio));
@@ -55,83 +58,12 @@ public class RegistroAnuncio {
                     .entity(new Respuesta("Formato de fecha no válido"))
                     .build();
         }
-        anuncioDTO.setTexto(texto);
-        anuncioDTO.setUrlVideo(urlVideo);
 
-        Date fechaFin = calcularFechaFin(anuncioDTO.getFechaInicio(), anuncioDTO.getDiasDuracion());
-
-        boolean registroExitoso;
-        try {
-            CrearAnuncio crearAnuncio = new CrearAnuncio();
-            int idAnunciante = crearAnuncio.obtenerIdAnunciantePorNombre(anuncioDTO.getNombreAnunciante());
-            double cartera = crearAnuncio.obtenerCartera(nombreAnunciante);
-            double pago = 0;
-            double total;
-            switch (anuncioDTO.getTipo()) {
-                case "1":
-                    pago = 40 * anuncioDTO.getDiasDuracion();
-                    if (pago > cartera || cartera <= 0) {
-                        return Response.status(Response.Status.BAD_REQUEST)
-                                .entity(new Respuesta("No cuentas con fondos suficientes"))
-                                .build();
-                    }
-                    total = cartera - pago;
-                    crearAnuncio.ingresoCartera(anuncioDTO.getNombreAnunciante(), total);
-                    crearAnuncio.crearAnuncioTexto(anuncioDTO.getTexto(), idAnunciante, anuncioDTO.getFechaInicio(), fechaFin, pago);
-                    break;
-
-                case "2":
-                    pago = 80 * anuncioDTO.getDiasDuracion();
-                    if (pago > cartera || cartera <= 0) {
-                        return Response.status(Response.Status.BAD_REQUEST)
-                                .entity(new Respuesta("No cuentas con fondos suficientes"))
-                                .build();
-                    }
-                    total = cartera - pago;
-                    crearAnuncio.ingresoCartera(anuncioDTO.getNombreAnunciante(), total);
-                    if (fileInputStream != null && fileDetail != null) {
-                        GuardarImagen guardarimg = new GuardarImagen();
-                        String imagePath = guardarimg.guardarImagen(fileInputStream, fileDetail.getFileName());
-                        anuncioDTO.setPathImagen(imagePath);
-                        crearAnuncio.crearAnuncioImagenYTexto(anuncioDTO.getTexto(), anuncioDTO.getPathImagen(), idAnunciante, anuncioDTO.getFechaInicio(), fechaFin, pago);
-                    } else {
-                        return Response.status(Response.Status.BAD_REQUEST)
-                                .entity(new Respuesta("Imagen requerida para este tipo de anuncio"))
-                                .build();
-                    }
-                    break;
-
-                case "3":
-                    pago = 100 * anuncioDTO.getDiasDuracion();
-                    if (pago > cartera || cartera <= 0) {
-                        return Response.status(Response.Status.BAD_REQUEST)
-                                .entity(new Respuesta("No cuentas con fondos suficientes"))
-                                .build();
-                    }
-                    total = cartera - pago;
-                    crearAnuncio.ingresoCartera(anuncioDTO.getNombreAnunciante(), total);
-                    crearAnuncio.crearAnuncioVideo(anuncioDTO.getUrlVideo(), idAnunciante, anuncioDTO.getFechaInicio(), fechaFin, pago);
-                    break;
-
-                default:
-                    return Response.status(Response.Status.BAD_REQUEST)
-                            .entity(new Respuesta("Tipo de anuncio no válido"))
-                            .build();
-            }
-            registroExitoso = true;
-        } catch (SQLException e) {
-            registroExitoso = false;
-            System.err.println("Error de base de datos: " + e.getMessage());
-        }
+        boolean registroExitoso = new IngresoAnuncio(anuncioDTO).registrarAnuncio(fileInputStream, fileDetail);
 
         return registroExitoso
                 ? Response.status(Response.Status.CREATED).entity(new Respuesta("Registro exitoso")).build()
                 : Response.status(Response.Status.CONFLICT).entity(new Respuesta("Error en el registro")).build();
-    }
-
-    private Date calcularFechaFin(Date fechaInicio, int diasDuracion) {
-        long milliseconds = fechaInicio.getTime() + (diasDuracion * 24L * 60 * 60 * 1000);
-        return new Date(milliseconds);
     }
 
     @POST

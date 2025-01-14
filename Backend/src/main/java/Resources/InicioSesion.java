@@ -37,10 +37,6 @@ public class InicioSesion {
                     .entity(new Respuesta("El usuario y la contraseña no pueden estar vacíos"))
                     .build();
         }
-
-        System.out.println("Usuario: " + username);
-        System.out.println("Contraseña: " + password);
-
         InicioSesionDB inicio = new InicioSesionDB();
         try {
             if (!inicio.verificarUserExist(username)) {

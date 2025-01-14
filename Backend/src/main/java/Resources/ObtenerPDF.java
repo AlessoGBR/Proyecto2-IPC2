@@ -29,7 +29,7 @@ public class ObtenerPDF {
         try {
             byte[] fileContent = Files.readAllBytes(Paths.get(path));
             return Response.ok(fileContent)
-                    .type("application/pdf") // Cambiamos a application/pdf
+                    .type("application/pdf") 
                     .header("Content-Disposition", "inline; filename=\"" + Paths.get(path).getFileName().toString() + "\"")
                     .build();
         } catch (IOException ex) {
@@ -44,7 +44,7 @@ public class ObtenerPDF {
         File file = new File(path);
         if (file.exists() && file.isFile()) {
             return Response.ok(file)
-                    .header("Content-Disposition", "inline; filename=\"" + file.getName() + "\"") // inline para mostrar en navegador
+                    .header("Content-Disposition", "inline; filename=\"" + file.getName() + "\"") 
                     .build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
