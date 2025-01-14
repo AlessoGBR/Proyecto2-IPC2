@@ -10,7 +10,9 @@
           <th>Título</th>
           <th>Usuario</th>
           <th>Estado</th>
-          <th>Opciones</th>
+          <th>Ver</th>
+          <th>Costo</th>
+          <th>Cambiar precio de costo</th>
         </tr>
       </thead>
       <tbody class="table-light">
@@ -28,6 +30,23 @@
               [routerLink]="['/InicioAdmin/Visualizar', r.idRevista]"
             >
               <i class="bi bi-eye-fill"> Ver revista</i>
+            </a>
+          </td>
+          <td>
+            <input 
+              type="number" 
+              [value]="r.precio" 
+              (input)="actualizarPrecio($event, r)" 
+              min="1" 
+              step="0.01" 
+            />  
+          </td>
+          <td>        
+            <a
+              class="btn btn-sm btn-info mx-1"
+              (click)="modificarPrecio(r)"
+            >
+              <i> Cambiar Precio</i>
             </a>
           </td>
         </tr>

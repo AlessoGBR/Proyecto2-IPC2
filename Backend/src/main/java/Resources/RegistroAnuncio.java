@@ -4,14 +4,17 @@
  */
 package Resources;
 
+import Backend.DB.ActualizarPreciosAnuncios;
 import Backend.DB.CrearAnuncio;
 import Backend.GuardarImagen;
 import Backend.Respuesta;
 import Models.Anuncio;
 import Models.Cartera;
+import Models.PrecioAnuncio;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
@@ -205,6 +208,32 @@ public class RegistroAnuncio {
                 .entity(montoAcutual)
                 .build();
 
+    }
+
+    @PUT
+    @Path("/EditarPrecios")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response editarPrecios(PrecioAnuncio precios) {
+        
+        boolean ingreso = new ActualizarPreciosAnuncios().actualizar(precios);
+        if (ingreso) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @GET
+    @Path("/PreciosAnuncios")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPreciosAnuncios() {
+        PrecioAnuncio precios = new ActualizarPreciosAnuncios().obtenerPrecios(); // Método que consulta la base de datos
+        if (precios != null) {
+            return Response.ok(precios).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("No se encontraron precios").build();
+        }
     }
 
 }

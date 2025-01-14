@@ -28,13 +28,19 @@ public class ObtenerReaccion {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarReaccion(Reaccion reaccion) {
-        
+
         ObtenerReacciones reacciones = new ObtenerReacciones();
-        reacciones.darMG(reaccion);
-        String mensaje = "si";
-        Respuesta respuesta = new Respuesta(mensaje);
-        return Response.status(Response.Status.OK).entity(respuesta).build();
-    } 
+        boolean verificar = reacciones.verificarMegusta(reaccion.getIdRevista());
+        if (verificar) {
+            reacciones.darMG(reaccion);
+            String mensaje = "si";
+            Respuesta respuesta = new Respuesta(mensaje);
+            return Response.status(Response.Status.OK).entity(respuesta).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+    }
 
     @GET
     @Path("/ObtenerReacciones/{idRevista}")

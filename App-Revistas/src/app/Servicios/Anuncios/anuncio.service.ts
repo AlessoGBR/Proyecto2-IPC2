@@ -54,6 +54,32 @@ export class AnuncioService {
       .pipe(catchError(this.handleError<number>('totalCarteraEditor')));
   }
 
+  actualizarPrecioAnuncio(precioAnuncio: {texto: number; imagen: number; video: number }): Observable<any> {
+    return this.http.put<any>(
+      `${this.apiUrl}/EditarPrecios`,
+      precioAnuncio, 
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  preciosAnuncios(): Observable<{ texto: number; imagen: number; video: number }> {
+    return this.http
+      .get<{ texto: number; imagen: number; video: number }>(`${this.apiUrl}/PreciosAnuncios`, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .pipe(
+        catchError(this.handleError<{ texto: number; imagen: number; video: number }>('preciosAnuncios', {
+          texto: 0,
+          imagen: 0,
+          video: 0,
+        }))
+      );
+  }
+  
+  
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

@@ -4,6 +4,8 @@
  */
 package Resources;
 
+import Backend.DB.ActualizarAnuncios;
+import Backend.DB.ActualizarPrecioRevistas;
 import Backend.DB.ActualizarRevista;
 import Backend.DB.CrearRevista;
 import Backend.DB.CrearSuscripcion;
@@ -13,6 +15,7 @@ import Backend.GuardarArchivo;
 import Backend.Respuesta;
 import Models.Comentario;
 import Models.Etiqueta;
+import Models.PrecioRevista;
 import Models.Revista;
 import Models.Suscripcion;
 import jakarta.ws.rs.Consumes;
@@ -32,6 +35,7 @@ import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import jakarta.json.JsonValue;
+import jakarta.ws.rs.GET;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -231,18 +235,17 @@ public class RegistroRevista {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response registroComentario(Comentario comentario) {
-        System.out.println(comentario.getFecha());
-        System.out.println(comentario.getIdRevista());
-        System.out.println(comentario.getNombreUsuario());
-        System.out.println(comentario.getComentario());
+        boolean verificar = new ObtenerComentario().verificarComentarios(comentario.getIdRevista());
+        if (verificar) {
+            int idComentario = new ObtenerComentario().registrarComentario(comentario);
+            comentario.setIdComentario(idComentario);
+            boolean ingresado = new ObtenerComentario().registrarComentarioRevista(comentario);
 
-        int idComentario = new ObtenerComentario().registrarComentario(comentario);
-        comentario.setIdComentario(idComentario);
-        System.out.println(comentario.getIdComentario());
-        boolean ingresado = new ObtenerComentario().registrarComentarioRevista(comentario);
-
-        if (ingresado) {
-            return Response.ok().build();
+            if (ingresado) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -253,14 +256,19 @@ public class RegistroRevista {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response registroSuscripcion(Suscripcion suscripcion) {
+        boolean verificacion = new CrearSuscripcion().suscripcion(suscripcion.getIdRevista());
+        if (verificacion) {
+            boolean ingresado = new CrearSuscripcion().ingresoSuscripcion(suscripcion);
 
-        boolean ingresado = new CrearSuscripcion().ingresoSuscripcion(suscripcion);
-
-        if (ingresado) {
-            return Response.ok().build();
+            if (ingresado) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+
     }
 
     @PUT
@@ -304,6 +312,76 @@ public class RegistroRevista {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @PUT
+    @Path("/CambioValorRevista")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response cambiarPrecioRevista(Map<String, Object> body) {
+        int idRevista = (int) body.get("idRevista");
+        double precio = Double.parseDouble(body.get("precio").toString());
+        if (precio >= 0) {
+            boolean actualizado = new ActualizarRevista().actualizarPrecio(idRevista, precio);
+
+            if (actualizado) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).entity("No se pudo actualizar el precio").build();
+            }
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).entity("No se puede actualizar el precio").build();
+        }
+
+    }
+    
+    @PUT
+    @Path("/CambioValorAnuncio")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response cambiarPrecioAnuncio(Map<String, Object> body) {
+        int idAnuncio = (int) body.get("idAnuncio");
+        double precio = Double.parseDouble(body.get("precio").toString());
+        System.out.println(idAnuncio);
+        System.out.println(precio);
+        if (precio >= 0) {
+            boolean actualizado = new ActualizarAnuncios().actualizarPrecio(idAnuncio, precio);
+
+            if (actualizado) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).entity("No se pudo actualizar el precio").build();
+            }
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).entity("No se puede actualizar el precio").build();
+        }
+
+    }
+
+    @PUT
+    @Path("/EditarPrecios")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response editarPrecios(PrecioRevista precios) {
+        
+        boolean ingreso = new ActualizarPrecioRevistas().actualizar(precios);
+        if (ingreso) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @GET
+    @Path("/PreciosRevistas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPreciosAnuncios() {
+        PrecioRevista precios = new ActualizarPrecioRevistas().obtenerPrecios(); // Método que consulta la base de datos
+        if (precios != null) {
+            return Response.ok(precios).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("No se encontraron precios").build();
         }
     }
 }

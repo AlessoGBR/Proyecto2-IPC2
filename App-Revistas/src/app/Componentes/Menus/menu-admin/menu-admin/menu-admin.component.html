@@ -15,9 +15,15 @@
         <a class="nav-link" (click)="Revistas()">Inicio</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" (click)="PrecioRevista()"> Precio Global Revistas </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-bs-toggle="dropdown" (click)="Anuncios()">
           Anuncios
         </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="PrecioAnuncio()"> Precio Global Anuncios </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="Reportes()"> Reportes </a>
@@ -30,7 +36,6 @@
 <div *ngIf="revistas">
   <app-lista-espera></app-lista-espera>
   <app-lista-aprobadas></app-lista-aprobadas>
-  <app-lista-denegadas></app-lista-denegadas>
 </div>
 <div *ngIf="anuncios">
   <app-ver-anuncios></app-ver-anuncios>
@@ -38,4 +43,10 @@
 </div>
 <div *ngIf="reportes">
   <app-reporte-admin></app-reporte-admin>
+</div>
+<div *ngIf="precioAnuncio">
+  <app-precio-anuncio></app-precio-anuncio>
+</div>
+<div *ngIf="precioRevista">
+  <app-precio-revista></app-precio-revista>
 </div>

@@ -80,6 +80,24 @@ public class ObtenerReacciones {
         }
     }
 
+    public boolean verificarMegusta(int idRevista) {
+        String query = "SELECT reacciones FROM Revista WHERE idRevista = ?;";
+        try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query)) {
+            prepared.setInt(1, idRevista);
+            try (ResultSet resultSet = prepared.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getBoolean("reacciones");
+                } else {
+                    System.err.println("No se encontró la revista con id: " + idRevista);
+                    return false;
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error al verificar reacciones: " + ex.getMessage());
+            return false;
+        }
+    }
+
     private Reaccion verificarMG(Reaccion reaccion) {
         Reaccion reac = null;
         String query = "SELECT * FROM Reaccion_Revista WHERE idRevista = ? AND nombre_usuario = ?;";
@@ -92,11 +110,11 @@ public class ObtenerReacciones {
             try (ResultSet r = prepared.executeQuery()) {
                 if (r.next()) {
                     reac = new Reaccion(
-                            r.getInt("idReaccion"), 
-                            obtenerReaccion(r.getInt("idReaccion")), 
-                            r.getDate("fecha").toString(), 
-                            r.getString("nombre_usuario"), 
-                            r.getInt("idRevista") 
+                            r.getInt("idReaccion"),
+                            obtenerReaccion(r.getInt("idReaccion")),
+                            r.getDate("fecha").toString(),
+                            r.getString("nombre_usuario"),
+                            r.getInt("idRevista")
                     );
                 }
             }

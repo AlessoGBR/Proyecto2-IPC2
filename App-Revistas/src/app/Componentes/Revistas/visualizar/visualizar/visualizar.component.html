@@ -1,21 +1,59 @@
 <div class="container rounded-3 shadow-lg my-5">
-    <div class="container p-3">         
+    <div class="container p-3">        
+      <div *ngIf="revista.tieneAnuncios">
+        <app-anuncio></app-anuncio>
+      </div>  
       <div *ngIf="revista" class="row">
         <div class="col-sm-4 rounded-3 border">
           <div class="my-4">
-            <h2>{{ revista.titulo }}, No. {{ revista.version }}</h2>
+            <h2>{{ revista.titulo }}</h2>
             <h5>Fecha de creación: {{ revista.fecha | date: "dd-MM-yyyy" }}</h5>
             <p>
               {{ revista.descripcion }}
-            </p>
+            </p>            
+          </div>          
+          <div class="d-flex justify-content-center gap-2">
+            <button *ngIf="revista.tieneReacciones" class="btn btn-info btn-sm mx-2" (click)="darMeGusta()">
+              Me Gusta <span class="badge bg-danger">{{ cantidadMG }}</span>
+            </button>
+            <button *ngIf="revista.tieneComentarios" class="btn btn-info btn-sm">
+              Comentarios <span class="badge bg-primary">{{ cantidadCom }}</span>
+            </button>
           </div>
+            <h5 class="my-3">Escritor: {{revista.usuario}}</h5>
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" [routerLink]="['/InicioLector/Perfil', revista.usuario]">
+                  Ver Perfil del Creador
+                </a>
+              </li>
+            </ul>
+          <h2 class="mt-4">{{ revista.tieneComentarios ? 'Comentarios' : 'Comentarios (Deshabilitados)' }}</h2>
+  
+        <div *ngIf="revista.tieneComentarios">
+          <div class="input-group was-validated mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Escriba un comentario . . ."
+              [(ngModel)]="comentarioNuevo"
+              minlength="10"
+              maxlength="200"
+              required
+            />
+            <button class="btn btn-primary" (click)="hacerComentario()">Agregar</button>
+          </div>
+  
+          <div class="overflow-auto" style="height: 370px;">
+            <div *ngFor="let coment of comentarios">
+              <app-comentario [comentario]="coment"></app-comentario>
+            </div>
+          </div>
+        </div>
         </div>
         <div class="col rounded-3" style="height: 700px">
             <app-ver-revista [path]="revista.revistaPath ??''"></app-ver-revista>
         </div>        
-      </div>   
-      <div *ngIf="revista.tieneAnuncios">
-        <app-anuncio></app-anuncio>
-      </div>      
+      </div>            
     </div>
   </div>

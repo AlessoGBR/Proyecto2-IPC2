@@ -22,6 +22,24 @@ public class CrearSuscripcion {
 
     }
 
+    public boolean suscripcion(int idRevista) {
+        String query = "SELECT suscripciones FROM Revista WHERE idRevista = ?;";
+        try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query)) {
+            prepared.setInt(1, idRevista);
+            try (ResultSet resultSet = prepared.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getBoolean("suscripciones");
+                } else {
+                    System.err.println("No se encontró la revista con id: " + idRevista);
+                    return false;
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error al verificar suscripciones: " + ex.getMessage());
+            return false;
+        }
+    }
+
     public boolean ingresoSuscripcion(Suscripcion suscripcion) {
         String query = "INSERT INTO Suscripcion(fecha, nombre_usuario, idRevista) VALUES(CURRENT_DATE,?,?);";
         try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query)) {
@@ -63,8 +81,8 @@ public class CrearSuscripcion {
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query)) {
 
-            prepared.setInt(1, suscripcion.getIdRevista());  
-            prepared.setString(2, suscripcion.getNombreUsuario());  
+            prepared.setInt(1, suscripcion.getIdRevista());
+            prepared.setString(2, suscripcion.getNombreUsuario());
 
             int rowsAffected = prepared.executeUpdate();
 

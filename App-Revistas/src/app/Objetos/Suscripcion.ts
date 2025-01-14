@@ -1,15 +1,15 @@
 export class Suscripcion {
   fecha: string;
-  nombre_usuario: string;
+  nombreUsuario: string;
   idRevista: number;
 
   constructor(
     fecha: string,
-    nombre_usuario: string,
+    nombreUsuario: string,
     idRevista: number
   ) {
     this.fecha = fecha;
-    this.nombre_usuario = nombre_usuario;
+    this.nombreUsuario = nombreUsuario;
     this.idRevista = idRevista;
   }
 }

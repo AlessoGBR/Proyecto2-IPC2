@@ -12,7 +12,7 @@
   
         <h3 class="mt-2">Interacción</h3>
         <div class="d-flex justify-content-center gap-2">
-          <button *ngIf="revista.tieneReacciones" class="btn btn-info btn-sm mx-2" (click)="darMeGusta()">
+          <button *ngIf="revista.tieneReacciones" class="btn btn-info btn-sm mx-2">
             Me Gusta <span class="badge bg-danger">{{ cantidadMG }}</span>
           </button>
           <button *ngIf="revista.tieneComentarios" class="btn btn-info btn-sm">
@@ -51,20 +51,7 @@
   
         <h2 class="mt-5">{{ revista.tieneComentarios ? 'Comentarios' : 'Comentarios (Deshabilitados)' }}</h2>
   
-        <div *ngIf="revista.tieneComentarios">
-          <div class="input-group was-validated mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Escriba un comentario . . ."
-              [(ngModel)]="comentarioNuevo"
-              minlength="10"
-              maxlength="200"
-              required
-            />
-            <button class="btn btn-primary" (click)="hacerComentario()">Agregar</button>
-          </div>
-  
+        <div *ngIf="revista.tieneComentarios">  
           <div class="overflow-auto" style="height: 500px;">
             <div *ngFor="let coment of comentarios">
               <app-comentario [comentario]="coment"></app-comentario>
