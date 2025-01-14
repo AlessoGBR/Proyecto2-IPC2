@@ -164,4 +164,22 @@ public class ActualizarRevista {
 
         return actualizado;
     }
+    
+    public boolean actualizarPrecio(int idRevista, double precio) {
+        String query = "UPDATE Revista SET precio = ? WHERE idRevista = ?";
+        boolean actualizado = false;
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setDouble(1, precio);
+            stmt.setInt(2, idRevista);
+            int rowsAffected = stmt.executeUpdate();
+
+            actualizado = rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar la revista con ID " + idRevista + ": " + e.getMessage());
+        }
+
+        return actualizado;
+    }
 }

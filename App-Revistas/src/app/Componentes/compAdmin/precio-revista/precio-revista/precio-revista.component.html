@@ -1,0 +1,40 @@
+<div class="container rounded-3 shadow-lg my-4" style="max-width: 725px">
+    <form class="was-validated" [formGroup]="revistaForm" (ngSubmit)="onSubmit()">
+      <div class="container p-4">
+        <div class="text-center mb-3">
+          <h1>Precio Global por revista</h1>
+        </div>
+        <div class="text-center mb-3">
+          <h3>Costo por mantener la revista</h3>
+        </div>
+        <div class="mb-3">
+          <label for="precio" class="form-label">Precio:</label>
+          <input
+            type="number"
+            id="precio"
+            formControlName="precio"
+            class="form-control"
+            required
+            placeholder="Ejemplo: 100"
+          />
+          <div
+            *ngIf="revistaForm.get('precioR')?.invalid && revistaForm.get('precioR')?.touched"
+            class="invalid-feedback"
+          >
+            El monto es requerido y debe ser un número positivo.
+          </div>
+        </div>
+        <div class="d-grid my-3">
+          <button
+            type="submit"
+            id="boton"
+            class="btn btn-success"
+            [disabled]="revistaForm.invalid"
+          >
+            Realizar cambios
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

@@ -6,6 +6,7 @@ package Resources;
 
 import Backend.DB.CrearSuscripcion;
 import Backend.DB.ObtenerAnuncios;
+import Backend.DB.ObtenerEtiquetas;
 import Backend.DB.ObtenerPerfil;
 import Backend.DB.ObtenerRevistas;
 import Backend.Respuesta;
@@ -306,13 +307,29 @@ public class obtenerObjetos {
         boolean existeSuscripcion;
         if (anunciantes == null) {
             existeSuscripcion = false;
-        } else{
+        } else {
             existeSuscripcion = true;
         }
         if (existeSuscripcion) {
             return Response.ok(anunciantes).build();
         } else {
             return Response.ok(false).build();
+        }
+    }
+
+    @POST
+    @Path("/ObtenerEtiquetas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerEtiqueta(String username) {
+        ObtenerEtiquetas etiqueta = new ObtenerEtiquetas();
+        List<Etiqueta> Etiquetas = etiqueta.obtenerEtiquetas(username);
+
+        if (!Etiquetas.isEmpty()) {
+            return Response.ok(Etiquetas).build();
+        } else {
+            return Response.status(Response.Status.NO_CONTENT)
+                    .entity("No hay revistas aprobadas disponibles.")
+                    .build();
         }
     }
 }

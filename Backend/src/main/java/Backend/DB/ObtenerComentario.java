@@ -68,8 +68,7 @@ public class ObtenerComentario {
 
     public int registrarComentario(Comentario comentario) {
         String query = "INSERT INTO Comentario(comentario, fecha, nombre_usuario) VALUES(?,CURRENT_DATE,?);";
-        try (Connection connection = dataSource.getConnection(); 
-         PreparedStatement prepared = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             prepared.setString(1, comentario.getComentario());
             prepared.setString(2, comentario.getNombreUsuario());
             prepared.executeUpdate();
@@ -95,6 +94,24 @@ public class ObtenerComentario {
             return true;
         } catch (SQLException ex) {
             System.out.println("error: " + ex);
+            return false;
+        }
+    }
+
+    public boolean verificarComentarios(int idRevista) {
+        String query = "SELECT comentarios FROM Revista WHERE idRevista = ?;";
+        try (Connection connection = dataSource.getConnection(); PreparedStatement prepared = connection.prepareStatement(query)) {
+            prepared.setInt(1, idRevista);
+            try (ResultSet resultSet = prepared.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getBoolean("comentarios");
+                } else {
+                    System.err.println("No se encontró la revista con id: " + idRevista);
+                    return false;
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error al verificar comentarios: " + ex.getMessage());
             return false;
         }
     }

@@ -243,6 +243,8 @@ export class PrevisualizarComponent implements OnInit {
           title: 'Suscripcion',
           text: 'Te haz suscrito a la revista.',
           confirmButtonText: 'Aceptar',
+        }).then(() => {
+          window.location.reload();
         });
       },
       error: (err) => {
@@ -274,6 +276,8 @@ export class PrevisualizarComponent implements OnInit {
           title: 'Suscripcion',
           text: 'Te haz desuscripto de la revista.',
           confirmButtonText: 'Aceptar',
+        }).then(() => {
+          window.location.reload();
         });
       },
       error: (err) => {

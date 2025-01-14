@@ -182,6 +182,18 @@ export class ObtenerObjetosService {
       );
   }
 
+  obtenerEtiquetas(usuario: string): Observable<Etiqueta[]> {
+    return this.http
+      .post<Etiqueta[]>(`${this.apiUrl}/ObtenerEtiquetas`, usuario, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .pipe(
+        catchError(
+          this.handleError<Etiqueta[]>('ObtenerEtiquetas', [])
+        )
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

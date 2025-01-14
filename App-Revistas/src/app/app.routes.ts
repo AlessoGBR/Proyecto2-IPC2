@@ -13,6 +13,7 @@ import { PublicarRevistaComponent } from './Componentes/Revistas/publicar-revist
 import { PrevisualizarComponent } from './Componentes/Revistas/previsualizar/previsualizar/previsualizar.component';
 import { VisualizarComponent } from './Componentes/Revistas/visualizar/visualizar/visualizar.component';
 import { EstadoRevistaComponent } from './Componentes/compAdmin/estado-revista/estado-revista/estado-revista.component';
+import { VerPerfilComponent } from './Componentes/CompLector/ver-perfil/ver-perfil/ver-perfil.component';
 
 export const routes: Routes = [
     {path: 'Inicio', component: InicioComponent},
@@ -27,6 +28,7 @@ export const routes: Routes = [
     {path: 'InicioAnunciante', component:MenuAnuncianteComponent},
     {path: 'crear-revista', component:PublicarRevistaComponent},
     {path: 'InicioLector/Previsualizar/:idRevista', component:PrevisualizarComponent},
+    {path: 'InicioLector/Perfil/:usuario', component:VerPerfilComponent},
     {path: 'InicioLector/Visualizar/:idRevista', component:VisualizarComponent},
     {path: 'InicioAdmin/Visualizar/:idRevista', component:VisualizarComponent},
     {path: 'InicioAdmin/estadoRevista/:idRevista', component:EstadoRevistaComponent},

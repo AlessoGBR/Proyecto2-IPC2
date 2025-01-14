@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Revista } from 'app/Objetos/Revista';
+import { catchError, of } from 'rxjs';
 import { Comentario } from 'app/Objetos/Comentario';
 import { Suscripcion } from 'app/Objetos/Suscripcion';
 
@@ -151,4 +151,57 @@ export class RegistroService {
       }
     );
   }
+
+  actualizarPrecioRevista(idRevista: number, precio: number): Observable<any> {
+    const body = { idRevista, precio }; 
+  
+    return this.http.put<any>(
+      `${this.apiUrl}/CambioValorRevista`,
+      body, 
+      {
+        headers: { 'Content-Type': 'application/json' }, 
+      }
+    );
+  }
+
+  actualizarPrecioAnuncio(idAnuncio: number, precio: number): Observable<any> {
+    const body = { idAnuncio, precio }; 
+  
+    return this.http.put<any>(
+      `${this.apiUrl}/CambioValorAnuncio`,
+      body, 
+      {
+        headers: { 'Content-Type': 'application/json' }, 
+      }
+    );
+  }
+
+  preciosRevista(): Observable<{ precio: number}> {
+      return this.http
+        .get<{ precio: number}>(`${this.apiUrl}/PreciosRevistas`, {
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .pipe(
+          catchError(this.handleError<{ precio: number }>('preciosAnuncios', {
+            precio: 0
+          }))
+        );
+    }
+
+    actualizarPrecioRevistas(precioAnuncio: {precio: number}): Observable<any> {
+      return this.http.put<any>(
+        `${this.apiUrl}/EditarPrecios`,
+        precioAnuncio, 
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+  
+     private handleError<T>(operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+          console.error(`${operation} failed: ${error.message}`);
+          return of(result as T);
+        };
+      }
 }

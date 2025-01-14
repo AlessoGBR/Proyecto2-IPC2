@@ -1,0 +1,82 @@
+<div class="container rounded-3 shadow-lg my-4" style="max-width: 725px">
+    <form class="was-validated" [formGroup]="revistaForm" (ngSubmit)="onSubmit()">
+      <div class="container p-4">
+        <div class="text-center mb-3">
+          <h1>Precio Global por tipo de anuncio</h1>
+        </div>
+        <div class="text-center mb-3">
+          <h3>Precios por día</h3>
+        </div>
+  
+        <!-- Campo para Texto -->
+        <div class="mb-3">
+          <label for="texto" class="form-label">Texto:</label>
+          <input
+            type="number"
+            id="texto"
+            formControlName="texto"
+            class="form-control"
+            required
+            placeholder="Ejemplo: 100"
+          />
+          <div
+            *ngIf="revistaForm.get('texto')?.invalid && revistaForm.get('texto')?.touched"
+            class="invalid-feedback"
+          >
+            El monto es requerido y debe ser un número positivo.
+          </div>
+        </div>
+  
+        <!-- Campo para Imagen y Texto -->
+        <div class="mb-3">
+          <label for="imagen" class="form-label">Imagen y texto:</label>
+          <input
+            type="number"
+            id="imagen"
+            formControlName="imagen"
+            class="form-control"
+            required
+            placeholder="Ejemplo: 150"
+          />
+          <div
+            *ngIf="revistaForm.get('imagen')?.invalid && revistaForm.get('imagen')?.touched"
+            class="invalid-feedback"
+          >
+            El monto es requerido y debe ser un número positivo.
+          </div>
+        </div>
+  
+        <!-- Campo para Video -->
+        <div class="mb-3">
+          <label for="video" class="form-label">Video:</label>
+          <input
+            type="number"
+            id="video"
+            formControlName="video"
+            class="form-control"
+            required
+            placeholder="Ejemplo: 200"
+          />
+          <div
+            *ngIf="revistaForm.get('video')?.invalid && revistaForm.get('video')?.touched"
+            class="invalid-feedback"
+          >
+            El monto es requerido y debe ser un número positivo.
+          </div>
+        </div>
+  
+        <!-- Botón de Enviar -->
+        <div class="d-grid my-3">
+          <button
+            type="submit"
+            id="boton"
+            class="btn btn-success"
+            [disabled]="revistaForm.invalid"
+          >
+            Realizar cambios
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

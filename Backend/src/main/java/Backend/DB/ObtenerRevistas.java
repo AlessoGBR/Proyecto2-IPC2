@@ -173,6 +173,7 @@ public class ObtenerRevistas {
                     revista.setTieneReacciones(rs.getBoolean("reacciones"));
                     revista.setSuscripciones(rs.getBoolean("suscripciones"));
                     revista.setDenegada(rs.getBoolean("denegada"));
+                    revista.setPrecio(rs.getDouble("precio"));
                     revistasAprobadas.add(revista);
                 }
             }

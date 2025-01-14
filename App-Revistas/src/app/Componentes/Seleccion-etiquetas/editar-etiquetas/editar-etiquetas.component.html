@@ -1,0 +1,18 @@
+<div class="container my-1">
+    <div *ngIf="editar" class="my-1 text-center">
+      <h5>INTERESES</h5>
+    </div>
+    <div *ngIf="editar" class="container border rounded overflow-auto" style="height: 100px">
+      <table class="table-responsive">
+        <tbody>
+          <app-etiqueta
+            *ngFor="let etiqueta of etiquetasExistentes; let i = index"
+            [etiquetaIn]="etiqueta"
+            [tipoBoton]="false"
+            (agregar)="agregarEtiqueta($event)"
+          >
+          </app-etiqueta>
+        </tbody>
+      </table>
+    </div>
+    

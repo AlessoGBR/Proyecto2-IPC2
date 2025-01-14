@@ -3,19 +3,20 @@
         <div class="row justify-content-center">
           <div class="col-auto m-0">
             <div class="card" style="width: 200px">
-              <div class="container" style="max-height: 100px; height: 125px;">
-                <img src="{{ pathFoto }}" height="100%"/>
+              <div class="container" style="max-height: 150px; height: 200px;">
+                <app-ver-imagen [path]="usuario!.foto"></app-ver-imagen>
               </div>
             </div>
           </div>
           <div class="col">
             <div class="text-center">
-                <h4 class="card-title">{{ username}}</h4>
-                <h4>Descripcion</h4>
+              <h5>NOMBRE</h5>
+                <h3 class="card-title">{{ username}}</h3>
+                <h5>DESCRIPCION</h5>
                 <p class="card-text">{{ usuario!.descripcion}}</p>
             </div>
             <div class="container-fluid text-center my-sm-4">
-              <button class="btn btn-primary">Guardar Cambios</button>
+              <app-editar-etiquetas></app-editar-etiquetas>
             </div>
           </div>
         </div>
